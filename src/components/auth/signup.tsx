@@ -29,7 +29,7 @@ const RegisterForm: React.FC = () => {
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const {name, surname, email, password, phone, user} = values
        
-        await axios.post(`https://findcourse.net.uz/api/users/register`, {firstName: name, lastName: surname, password, email, phone, role: user, image: 'default.img'}).then(() => {
+        await axios.post(`https://findcourse.net.uz/api/users/register`, {firstName: name, lastName: surname, password, email, phone, role: user, image: 'https://openclipart.org/image/2000px/247319'}).then(() => {
             navigate("/register/verify-otp")
             localStorage.setItem('otp-email', JSON.stringify(email))
             resendOtp()

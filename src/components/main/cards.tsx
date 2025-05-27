@@ -16,20 +16,20 @@ function Cards() {
     });
     console.log(coursesData)
   return (
-    <section className="py-[80px] px:5 md:px-10">
-        <div className="max-w-[1200px] mx-auto">
-            <div className="flex gap-[20px] justify-center mb-[40px]">
+    <section className="py-[80px] px-5 md:px-10">
+        <div className="max-w-[1200px] mx-auto ">
+            <div className="flex md:flex-row flex-col gap-[20px] justify-center mb-[40px]">
                 <form className="p-[10px] flex items-center gap-[15px] border-[1px] border-[#451774] rounded-[50px]">
                     <button className="cursor-pointer">
                         <IoSearchOutline className="text-[20px]"/>
                     </button>
-                    <input type="text" placeholder="Kasb, fan yoki o'quv markaz nomini kiriting" className=" w-[600px] outline-none"/>
+                    <input type="text" placeholder="Kasb, fan yoki o'quv markaz nomini kiriting" className="w-[400px] lg:w-[600px] outline-none"/>
                 </form>
                 <button className="text-[#fff] p-[10px] bg-[#451774] rounded-[10px] cursor-pointer">
                     Kurslar va Hududlar
                 </button>
             </div>
-            <div className="grid grid-cols-3 gap-[70px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 ld:grid-cols-3 gap-[40px] md:gap-[70px]">
                 {coursesData?.data?.map((item: Iproduct) => (
                     <div key={item.id} className="rounded-[15px] shadow-xl overflow-hidden cursor-pointer hover:scale-[103%] translate-all duration-200">
                         <div className="h-[200px]">

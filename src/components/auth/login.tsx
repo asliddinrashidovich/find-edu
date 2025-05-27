@@ -18,6 +18,8 @@ const LoginForm: React.FC = () => {
         await axios.post(`https://findcourse.net.uz/api/users/login`, {password, email}).then((res) => {
             navigate("/")
             localStorage.setItem('token', res.data.accessToken)
+            localStorage.setItem('refreshToken', res.data.refreshToken)
+            window.location.reload()
         }).catch((err) => {
             if(err.status == 409) {
                 toast.error('User Not found, please Try again')

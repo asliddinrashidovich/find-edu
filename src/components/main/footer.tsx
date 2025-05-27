@@ -9,57 +9,61 @@ function Footer() {
             <Link to={'/'} className="px-[20px] py-[5px] rounded-[5px] bg-[#fff] flex items-center max-w-[200px] mb-[30px]">
                 <img src="/logo.png" alt="logo" />
             </Link>
-            <div className="mb-[20px] flex gap-[50px] pl-[50px]">
-                <ul className="flex flex-col gap-5">
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>Bosh sahifa</Link>
-                    </li>
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>O'quv markazlar</Link>
-                    </li>
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>Biz haqimizda</Link>
-                    </li>
-                </ul>
-                <ul className="flex flex-col gap-5">
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>Aloqa</Link>
-                    </li>
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>Sharhlar</Link>
-                    </li>
-                    <li className="text-[#fff] text-[18px]">
-                        <Link to={'#'}>Loyihalar</Link>
-                    </li>
-                </ul>
-                <ul className="flex flex-col gap-5">
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">It</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">Matematika</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">Marketing</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">SAT</Link>
-                    </li>
-                </ul>
-                <ul className="flex flex-col gap-5">
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">Ingliz tili</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">SMM</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">Dizayn</Link>
-                    </li>
-                    <li className="text-[#888] ">
-                        <Link to={'#'} className="text-[16px] font-[400]">Biznes</Link>
-                    </li>
-                </ul>
+            <div className="mx-[20px] flex flex-col justify-start md:flex-row gap-[50px]">
+                <div className="flex w-full md:w-[300px] justify-between">
+                    <ul className="flex flex-col gap-5">
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>Bosh sahifa</Link>
+                        </li>
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>O'quv markazlar</Link>
+                        </li>
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>Biz haqimizda</Link>
+                        </li>
+                    </ul>
+                    <ul className="flex flex-col gap-5">
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>Aloqa</Link>
+                        </li>
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>Sharhlar</Link>
+                        </li>
+                        <li className="text-[#fff] text-[18px]">
+                            <Link to={'#'}>Loyihalar</Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className="flex w-full md:w-[300px] justify-between">
+                    <ul className="flex flex-col gap-5">
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">It</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">Matematika</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">Marketing</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">SAT</Link>
+                        </li>
+                    </ul>
+                    <ul className="flex flex-col gap-5">
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">Ingliz tili</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">SMM</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">Dizayn</Link>
+                        </li>
+                        <li className="text-[#888] ">
+                            <Link to={'#'} className="text-[16px] font-[400]">Biznes</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>  
             <div className="flex justify-between items-center">
                 <p className="text-[15px] text-[#888]">© 2025 Findedu. All Rights Reserved. Best Girls</p>
