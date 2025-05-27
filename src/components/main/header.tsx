@@ -3,9 +3,10 @@ import { Select } from "antd"
 import axios from "axios";
 import { FaPowerOff } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Header() {
+    const navigate = useNavigate()
     const token = localStorage.getItem('token');
 
     const fetchMydata = async () => {
@@ -93,10 +94,10 @@ function Header() {
             <div className="group-hover:flex hidden absolute  p-[10px] bg-[#fff] rounded-[5px] flex-col">
                 <h2 className="text-[14px] font-[600] leading-[60%] mt-[10px]">{myData?.data?.firstName} {myData?.data?.lastName}</h2>
                 <p className="text-[14px] font-[300]">{myData?.data?.email}</p>
-                <div className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                <button onClick={() => navigate("/profile")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
                   <MdEdit />
                   <p>Profilni tahrirlash</p>
-                </div>
+                </button>
                 <button onClick={handleLogout} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
                   <FaPowerOff className="text-[red]"/>
                   <p className="text-[red]">Chiqish</p>
