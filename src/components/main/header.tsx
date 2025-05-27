@@ -1,12 +1,5 @@
+import { Select } from "antd"
 import { Link } from "react-router-dom"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 function Header() {
   return (
@@ -38,24 +31,31 @@ function Header() {
           </li>
         </ul>
         <div className="flex gap-[20px]">
-           <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem defaultChecked value="uz">Uz</SelectItem>
-                <SelectItem value="en">Eng</SelectItem>
-                <SelectItem value="ru">Ru</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Link to={'/login'} className="border-[1px] border-[#461773] text-[#461773] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-            Kirish
-          </Link>
-          <button className=" bg-[#461773] text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-            Ro'yxatdan o'tish
-          </button>
+          <Select
+              dropdownStyle={{
+                  background: 'white',
+                  boxShadow: 'none',
+                  borderRadius: 0,
+              }}
+              defaultValue="en"
+              style={{ width: 60 }}
+              // onChange={handleLanguageChange}
+              options={[
+                  { value: 'en', label: 'en' },
+                  { value: 'uz', label: 'uz' },
+                  { value: 'ru', label: 'ru' },
+              ]}
+          />
+          {
+            <div>
+              <Link to={'/login'} className="border-[1px] border-[#461773] text-[#461773] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
+                Kirish
+              </Link>
+              <Link to={'/register'} className=" bg-[#461773] text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
+                Ro'yxatdan o'tish
+              </Link>
+            </div>
+          }
         </div>
       </div>
     </header>

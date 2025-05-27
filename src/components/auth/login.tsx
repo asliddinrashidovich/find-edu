@@ -12,11 +12,12 @@ type FieldType = {
 
 const LoginForm: React.FC = () => {
     const navigate = useNavigate()
+
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const {email, password} = values
-        await axios.post(`https://green-shop-backend.onrender.com/api/user/sign-in?access_token=6506e8bd6ec24be5de357927`, {password, email}).then((res) => {
-            navigate("/dashboard")
-            localStorage.setItem('token', res.data.data.token)
+        await axios.post(`https://findcourse.net.uz/api/users/login`, {password, email}).then((res) => {
+            navigate("/")
+            localStorage.setItem('token', res.data.accessToken)
         }).catch((err) => {
             if(err.status == 409) {
                 toast.error('User Not found, please Try again')

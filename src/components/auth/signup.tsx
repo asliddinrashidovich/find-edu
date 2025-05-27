@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,27 +9,43 @@ type FieldType = {
   name?: string;
   surname?: string;
   password?: string;
+  phone?: string;
+  user?: string;
 };
 
 
 const RegisterForm: React.FC = () => {
     const navigate = useNavigate()
+    
+    const resendOtp = async ()  => {
+        const storedOtp = localStorage.getItem('otp-email');
+        const emailOtp = storedOtp ? JSON.parse(storedOtp) : null;
+        await axios.post(`https://findcourse.net.uz/api/users/send-otp`, {email: emailOtp}).then(() => {
+            toast.success('We send 5 digits verification code to your email')
+        }).catch(() => {
+            toast.error('Something went wrong')
+        })
+    }; 
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
-        const {name, surname, email, password} = values
-        await axios.post(`https://green-shop-backend.onrender.com/api/user/sign-up?access_token=6506e8bd6ec24be5de357927`, {name, surname, password, email}).then((res) => {
-            navigate("/dashboard")
-            localStorage.setItem('token', res.data.data.token)
+        const {name, surname, email, password, phone, user} = values
+       
+        await axios.post(`https://findcourse.net.uz/api/users/register`, {firstName: name, lastName: surname, password, email, phone, role: user, image: 'default.img'}).then(() => {
+            navigate("/register/verify-otp")
+            localStorage.setItem('otp-email', JSON.stringify(email))
+            resendOtp()
         }).catch((err) => {
             if(err.status == 409) {
-                toast.error('User Not found, please Try again')
+                toast.error('User already registered, please try another email')
             } else {
-                toast.error('Something went wrong')
+                console.log(err)
+                toast.error(err.response.data.message)
             }
         })
     };
 
     return (
-       <Form
+       <>
+        <Form
             name="layout-multiple-horizontal"
             layout="horizontal"
             requiredMark={false}
@@ -38,7 +54,10 @@ const RegisterForm: React.FC = () => {
                 name: "",
                 surname: "",
                 email: "",
-                password: ""
+                password: "",
+                phone: "",
+                user: "",
+                photo: "",
             }}
         >
             <h2 className='text-[36px] font-[700] leading-[100%] text-[#151515] text-center mb-[36px]'>Sign up</h2>
@@ -60,6 +79,7 @@ const RegisterForm: React.FC = () => {
             >
                 <Input placeholder='Enter your last name' />
             </Form.Item>
+
             <Form.Item
                 label="Email"
                 name="email"
@@ -68,6 +88,16 @@ const RegisterForm: React.FC = () => {
                 className='h-[60px] w-[270px] sm:w-[374px] username_label'
             >
                 <Input placeholder='Enter your email' type='email'/>
+            </Form.Item>
+
+            <Form.Item
+                label="Phone number"
+                name="phone"
+                rules={[{ required: true }]}
+                layout="vertical"
+                className='h-[60px] w-[270px] sm:w-[374px] username_label'
+            >
+                <Input placeholder='+998946092401' type='number'/>
             </Form.Item>
 
             <Form.Item
@@ -80,6 +110,35 @@ const RegisterForm: React.FC = () => {
                 <Input placeholder='Enter your password'/>
             </Form.Item>
 
+            <Form.Item
+                name="user"
+                rules={[{ required: true }]}
+                layout="vertical"
+                className='h-[40px] w-[270px] sm:w-[374px] username_label'
+            >
+                <Select
+                    dropdownStyle={{
+                        background: 'white',
+                        boxShadow: 'none',
+                        borderRadius: 0,
+                    }}
+                    defaultValue="CEO"
+                    style={{ width: 160 }}
+                    // onChange={handleLanguageChange}
+                    options={[
+                        { value: 'CEO', label: 'CEO' },
+                        { value: 'USER', label: 'USER' },
+                    ]}
+                />
+            </Form.Item>
+            
+            <Form.Item
+                name="photo"
+                layout="vertical"
+                className='h-[40px] w-[270px] sm:w-[374px] username_label'
+            >
+                <Input type="file" placeholder='Choose file' />
+            </Form.Item>
 
             <Form.Item label={null}>
                 <Button 
@@ -91,6 +150,7 @@ const RegisterForm: React.FC = () => {
             </Form.Item>
             <h2 className='text-[14px] text-[#24272C] text-center leading-[120%] font-[300]'>Already have an account? <Link to={'/login'} className='text-[#1B28BC]'>Go to sign in.</Link></h2>
         </Form>
+       </>
     )
 }
 
