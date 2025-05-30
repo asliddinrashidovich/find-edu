@@ -6,6 +6,8 @@ import RegisterPage from "./pages/register-page"
 import VerifyRegisterOtp from "./pages/verify-register-otp"
 import ProfilePage from "./pages/profile-page"
 import QueePage from "./pages/quee-page"
+import CreateCenter from "./pages/create-center"
+import MyCentersPage from "./pages/my-centers-page"
 
 function App() {
   const routes = createBrowserRouter(
@@ -17,6 +19,8 @@ function App() {
         <Route path="register/verify-otp" element={<VerifyRegisterOtp/>}/>
         <Route path="profile" element={<ProfilePage/>}/>
         <Route path="appointment" element={<QueePage/>}/>
+        <Route path="create-centers" element={<CreateCenter/>}/>
+        <Route path="my-centers" element={<MyCentersPage/>}/>
       </Route>
     )
   )

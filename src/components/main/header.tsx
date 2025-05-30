@@ -4,6 +4,8 @@ import axios from "axios";
 import { FaPowerOff } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"
+import { IoMdAddCircle } from "react-icons/io";
+import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 
 function Header() {
     const navigate = useNavigate()
@@ -63,9 +65,22 @@ function Header() {
             </Link>
           </li>}
           {myData?.data?.role == 'CEO' &&  <li>
-            <Link to={'/'} className="text-[#5d556a]">
-              CEO boshqaruv paneli
-            </Link>
+            <div className="group relative">
+              <div className="cursor-pointer">
+                <h2 className="text-[#5d556a]">CEO boshqaruv paneli</h2>
+              </div>
+
+              <div className="group-hover:flex hidden absolute w-[200px]  p-[10px] bg-[#fff] rounded-[5px] flex-col">
+                  <button onClick={() => navigate("/create-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                    <IoMdAddCircle />
+                    <p>Markaz yaratish</p>
+                  </button>
+                  <button onClick={() => navigate("/my-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                    <HiMiniBuildingOffice2 />
+                    <p>Mening markazlarim</p>
+                  </button>
+              </div>
+            </div>
           </li>}
         </ul>
         <div className="flex gap-[20px] items-center">
@@ -102,7 +117,7 @@ function Header() {
               </div>
             </div>
 
-            <div className="group-hover:flex hidden absolute  p-[10px] bg-[#fff] rounded-[5px] flex-col">
+            <div className="group-hover:flex right-[0px] hidden w-[200px] absolute  p-[10px] bg-[#fff] rounded-[5px] flex-col">
                 <h2 className="text-[14px] font-[600] leading-[60%] mt-[10px]">{myData?.data?.firstName} {myData?.data?.lastName}</h2>
                 <p className="text-[14px] font-[300]">{myData?.data?.email}</p>
                 <button onClick={() => navigate("/profile")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
