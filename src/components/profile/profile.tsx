@@ -5,21 +5,25 @@ import { FaArrowLeft, FaCheck, FaTrashAlt } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
 import { Link, useNavigate } from "react-router-dom"
 import { FiDelete } from "react-icons/fi";
+import toast from "react-hot-toast"
+import { Modal } from "antd"
 
 function Profile() {
     const [editPage, setEditPage] = useState(false)
     const [fname, setFname] = useState("")
     const [lname, setLname] = useState("")
     const [telephone, setTelephone] = useState("")
-    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     const navigate = useNavigate()
 
-    const handleLogOut = ()  => {
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('token')
-        navigate('/')
-        window.location.reload()
-    }
+    
     const token = localStorage.getItem('token');
 
     const fetchMydata = async () => {
@@ -35,19 +39,38 @@ function Profile() {
     };
 
     const { data: myData} = useQuery({
-        queryKey: ["mydata"],
+        queryKey: ["mydata", editPage],
         queryFn: fetchMydata,
     });
 
     // updata profile
     const handleSubmit = async () => {
         try {
-            await axios.post(`https://findcourse.net.uz/api/users/${myData?.data?.id}`, {firstName: fname, lastName: lname, phone: telephone}, {
+            await axios.patch(`https://findcourse.net.uz/api/users/${myData?.data?.id}`, {firstName: fname, lastName: lname, phone: telephone}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            alert('successs')
+            setEditPage(false)
+            toast.success('The profile edited successfully')
+        } 
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    const handleOk =  async ()  => {
+        try {
+            await axios.delete(`https://findcourse.net.uz/api/users/${myData?.data?.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            toast.success('The profile edited successfully')
+            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('token')
+            navigate('/')
+            window.location.reload()
         } 
         catch(err) {
             console.log(err)
@@ -108,11 +131,14 @@ function Profile() {
         </div>
         {!editPage && <div>
             <hr className="border-[1px] border-[#999] mb-[20px]"/>
-            <button onClick={() => handleLogOut()} className="rounded-[7px] border-[#ef4444] border-[1px]  p-[10px] cursor-pointer bg-[#fff] flex items-center gap-[7px]">
+            <button onClick={() => showModal()} className="rounded-[7px] border-[#ef4444] border-[1px]  p-[10px] cursor-pointer bg-[#fff] flex items-center gap-[7px]">
                 <FaTrashAlt className="text-[#ef4444]"/>
                 <p className="text-[#ef4444]">Accountni O'chirish</p>
             </button>
         </div>}
+        <Modal title="❗Akkauntni o'chirishni tasdiqlash" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <p className="text-[15px] font-[500]">Akkauntingizni o'chirishni istaysizmi? Bu amalni bekor qilib bo'lmaydi va barcha ma'lumotlaringiz butunlay o'chiriladi.</p>
+        </Modal>
     </div>
   )
 }
