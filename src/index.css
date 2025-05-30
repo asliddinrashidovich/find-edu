@@ -124,3 +124,8 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.hero_appointment {
+  background-image: url(/navbatlar/navbatlar_hero.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}

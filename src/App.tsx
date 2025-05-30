@@ -5,6 +5,7 @@ import LoginPage from "./pages/login-page"
 import RegisterPage from "./pages/register-page"
 import VerifyRegisterOtp from "./pages/verify-register-otp"
 import ProfilePage from "./pages/profile-page"
+import QueePage from "./pages/quee-page"
 
 function App() {
   const routes = createBrowserRouter(
@@ -15,6 +16,7 @@ function App() {
         <Route path="register" element={<RegisterPage/>}/>
         <Route path="register/verify-otp" element={<VerifyRegisterOtp/>}/>
         <Route path="profile" element={<ProfilePage/>}/>
+        <Route path="appointment" element={<QueePage/>}/>
       </Route>
     )
   )

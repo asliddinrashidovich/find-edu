@@ -28,6 +28,7 @@ function Header() {
       localStorage.removeItem('refreshToken')
       window.location.reload()
     }
+
     console.log(myData)
   return (
     <header className="bg-[#fff] px-5 md:px-10 py-[15px] fixed w-full z-99">
@@ -56,6 +57,16 @@ function Header() {
               Sevimlilar
             </Link>
           </li>
+          {token &&  <li>
+            <Link to={'/appointment'} className="text-[#5d556a]">
+              Navbatlar
+            </Link>
+          </li>}
+          {myData?.data?.role == 'CEO' &&  <li>
+            <Link to={'/'} className="text-[#5d556a]">
+              CEO boshqaruv paneli
+            </Link>
+          </li>}
         </ul>
         <div className="flex gap-[20px] items-center">
           <Select
