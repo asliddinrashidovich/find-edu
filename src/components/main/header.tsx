@@ -50,7 +50,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to={'/'} className="text-[#5d556a]">
+            <Link to={'/resources'} className="text-[#5d556a]">
               Resurslar
             </Link>
           </li>

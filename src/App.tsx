@@ -8,6 +8,7 @@ import ProfilePage from "./pages/profile-page"
 import QueePage from "./pages/quee-page"
 import CreateCenter from "./pages/create-center"
 import MyCentersPage from "./pages/my-centers-page"
+import Resources from "./pages/resources"
 
 function App() {
   const routes = createBrowserRouter(
@@ -21,6 +22,7 @@ function App() {
         <Route path="appointment" element={<QueePage/>}/>
         <Route path="create-centers" element={<CreateCenter/>}/>
         <Route path="my-centers" element={<MyCentersPage/>}/>
+        <Route path="resources" element={<Resources/>}/>
       </Route>
     )
   )

@@ -195,3 +195,24 @@ export interface Iproduct {
     //     }
     // ]
 }
+
+export interface ICategory {
+    id: number
+    name: string
+    image: string
+}
+
+export interface UserType {
+    firstName: string
+}
+
+
+export interface IResources {
+    id: number
+    name: string
+    image: string
+    categoryId: number
+    description: string
+    updatedAt: string
+    user: UserType
+}
