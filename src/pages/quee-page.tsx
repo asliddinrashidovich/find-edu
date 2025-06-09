@@ -1,5 +1,4 @@
-import HeroApointment from "@/components/appointment/hero_apointment"
-import NavbatlarCards from "@/components/appointment/navbatlar"
+import { HeroApointment, NavbatlarCards } from "@/components"
 
 function QueePage() {
   return (

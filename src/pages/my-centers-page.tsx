@@ -1,5 +1,4 @@
-import HeroMyCenters from "@/components/ceo/my-centers/hero-my-centers"
-import MyCentersCards from "@/components/ceo/my-centers/my-centers-cards"
+import { HeroMyCenters, MyCentersCards } from "@/components";
 
 function MyCentersPage() {
   return (

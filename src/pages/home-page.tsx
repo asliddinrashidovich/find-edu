@@ -1,5 +1,4 @@
-import Cards from "@/components/main/cards"
-import Hero from "@/components/main/hero"
+import { Cards, Hero } from "@/components"
 
 function HomePage() {
   return (

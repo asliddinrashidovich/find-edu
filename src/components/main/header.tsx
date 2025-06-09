@@ -7,12 +7,14 @@ import { Link, useNavigate } from "react-router-dom"
 import { IoMdAddCircle } from "react-icons/io";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 
+const API = import.meta.env.VITE_API
+
 function Header() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
 
     const fetchMydata = async () => {
-        const res = await axios.get(`https://findcourse.net.uz/api/users/mydata`, {
+        const res = await axios.get(`${API}/api/users/mydata`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +47,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to={'/'} className="text-[#5d556a]">
+            <Link to={'/about'} className="text-[#5d556a]">
               Biz haqimizda
             </Link>
           </li>

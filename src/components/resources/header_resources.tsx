@@ -4,9 +4,11 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import { IoSearchOutline, IoSearchSharp } from "react-icons/io5"
 
+const API = import.meta.env.VITE_API
+
 function HeaderResources() {
      const fetchFilterCategory = async () => {
-        const res = await axios.get(`https://findcourse.net.uz/api/categories`);
+        const res = await axios.get(`${API}/api/categories`);
         return res.data
     };
 
@@ -16,7 +18,7 @@ function HeaderResources() {
     });
 
      const fetchResources = async () => {
-        const res = await axios.get(`https://findcourse.net.uz/api/resources`);
+        const res = await axios.get(`${API}/api/resources`);
         return res.data
     };
 

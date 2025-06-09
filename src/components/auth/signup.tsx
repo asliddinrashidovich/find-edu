@@ -13,6 +13,7 @@ type FieldType = {
   user?: string;
 };
 
+const API = import.meta.env.VITE_API
 
 const RegisterForm: React.FC = () => {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ const RegisterForm: React.FC = () => {
     const resendOtp = async ()  => {
         const storedOtp = localStorage.getItem('otp-email');
         const emailOtp = storedOtp ? JSON.parse(storedOtp) : null;
-        await axios.post(`https://findcourse.net.uz/api/users/send-otp`, {email: emailOtp}).then(() => {
+        await axios.post(`${API}/api/users/send-otp`, {email: emailOtp}).then(() => {
             toast.success('We send 5 digits verification code to your email')
         }).catch(() => {
             toast.error('Something went wrong')
@@ -29,7 +30,7 @@ const RegisterForm: React.FC = () => {
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const {name, surname, email, password, phone, user} = values
        
-        await axios.post(`https://findcourse.net.uz/api/users/register`, {firstName: name, lastName: surname, password, email, phone, role: user, image: 'https://openclipart.org/image/2000px/247319'}).then(() => {
+        await axios.post(`${API}/api/users/register`, {firstName: name, lastName: surname, password, email, phone, role: user, image: 'https://openclipart.org/image/2000px/247319'}).then(() => {
             navigate("/register/verify-otp")
             localStorage.setItem('otp-email', JSON.stringify(email))
             resendOtp()

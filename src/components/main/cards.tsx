@@ -5,18 +5,16 @@ import { MdLocalPhone } from "react-icons/md";
 import { Iproduct } from "@/interfaces";
 import { useState } from "react";
 
+const API = import.meta.env.VITE_API
+
 function Cards() {
     const [search, setSearch] = useState<string>("")
 
-    // const handleSubmitSearch = (e) => {
-    //     e.preventDefault()
-    //     console.log()
-    // }
     const handleSearch = (value: string) => {
         setSearch(value)
     }
     const fetchStudyCenter = async () => {
-        const res = await axios.get(`https://findcourse.net.uz/api/centers`);
+        const res = await axios.get(`${API}/api/centers`);
         const allProducts =  res?.data?.data;
       
         const filtered = allProducts.filter((product: Iproduct) =>  product.name.toLowerCase().includes(search.toLowerCase()) );

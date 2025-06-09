@@ -1,5 +1,4 @@
-import HeaderResources from "@/components/resources/header_resources"
-import HeroResources from "@/components/resources/hero_resources"
+import { HeaderResources, HeroResources } from "@/components"
 
 function Resources() {
   return (

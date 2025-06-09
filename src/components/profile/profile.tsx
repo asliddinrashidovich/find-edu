@@ -8,6 +8,8 @@ import { FiDelete } from "react-icons/fi";
 import toast from "react-hot-toast"
 import { Modal } from "antd"
 
+const API = import.meta.env.VITE_API
+
 function Profile() {
     const [editPage, setEditPage] = useState(false)
     const [fname, setFname] = useState("")
@@ -27,7 +29,7 @@ function Profile() {
     const token = localStorage.getItem('token');
 
     const fetchMydata = async () => {
-        const res = await axios.get(`https://findcourse.net.uz/api/users/mydata`, {
+        const res = await axios.get(`${API}/api/users/mydata`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +48,7 @@ function Profile() {
     // updata profile
     const handleSubmit = async () => {
         try {
-            await axios.patch(`https://findcourse.net.uz/api/users/${myData?.data?.id}`, {firstName: fname, lastName: lname, phone: telephone}, {
+            await axios.patch(`${API}/api/users/${myData?.data?.id}`, {firstName: fname, lastName: lname, phone: telephone}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -61,7 +63,7 @@ function Profile() {
 
     const handleOk =  async ()  => {
         try {
-            await axios.delete(`https://findcourse.net.uz/api/users/${myData?.data?.id}`, {
+            await axios.delete(`${API}/api/users/${myData?.data?.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

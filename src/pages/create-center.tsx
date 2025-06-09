@@ -1,5 +1,4 @@
-import CreateCenterForm from "@/components/ceo/create-centers/create-center-form"
-import HeroCreateCenter from "@/components/ceo/create-centers/hero-create-center"
+import { CreateCenterForm, HeroCreateCenter } from "@/components"
 
 function CreateCenter() {
   return (

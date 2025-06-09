@@ -1,14 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import MainLayout from "./layout/main-layout"
-import HomePage from "./pages/home-page"
-import LoginPage from "./pages/login-page"
-import RegisterPage from "./pages/register-page"
-import VerifyRegisterOtp from "./pages/verify-register-otp"
-import ProfilePage from "./pages/profile-page"
-import QueePage from "./pages/quee-page"
-import CreateCenter from "./pages/create-center"
-import MyCentersPage from "./pages/my-centers-page"
-import Resources from "./pages/resources"
+import { AboutPage, CreateCenter, HomePage, LoginPage, MyCentersPage, NotFoundPage, ProfilePage, QueePage, RegisterPage, Resources, VerifyRegisterOtp } from "./pages"
 
 function App() {
   const routes = createBrowserRouter(
@@ -23,6 +15,8 @@ function App() {
         <Route path="create-centers" element={<CreateCenter/>}/>
         <Route path="my-centers" element={<MyCentersPage/>}/>
         <Route path="resources" element={<Resources/>}/>
+        <Route path="about" element={<AboutPage/>}/>
+        <Route path="*" element={<NotFoundPage/>}/>
       </Route>
     )
   )

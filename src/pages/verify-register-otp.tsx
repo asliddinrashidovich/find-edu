@@ -1,4 +1,4 @@
-import VerifyOtp from "@/components/auth/verify-otp"
+import { VerifyOtp } from "@/components"
 
 function VerifyRegisterOtp() {
   return (

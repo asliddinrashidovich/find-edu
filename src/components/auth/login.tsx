@@ -5,17 +5,18 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 type FieldType = {
-  email?: string;
-  password?: string;
+    email?: string;
+    password?: string;
 };
 
+const API = import.meta.env.VITE_API
 
 const LoginForm: React.FC = () => {
     const navigate = useNavigate()
 
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const {email, password} = values
-        await axios.post(`https://findcourse.net.uz/api/users/login`, {password, email}).then((res) => {
+        await axios.post(`${API}/api/users/login`, {password, email}).then((res) => {
             navigate("/")
             localStorage.setItem('token', res.data.accessToken)
             localStorage.setItem('refreshToken', res.data.refreshToken)

@@ -3,13 +3,12 @@ import { Button, Form, Input } from 'antd';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-// import type { GetProps } from 'antd';
 
 type FieldType = {
   otp?: string;
 };
 
-// type OTPProps = GetProps<typeof Input.OTP>;
+const API = import.meta.env.VITE_API
 
 const VerifyOtp: React.FC = () => {
     const navigate = useNavigate()
@@ -18,7 +17,7 @@ const VerifyOtp: React.FC = () => {
 
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const { otp} = values
-        await axios.post(`https://findcourse.net.uz/api/users/verify-otp`, {otp, email: emailOtp}).then(() => {
+        await axios.post(`${API}/api/users/verify-otp`, {otp, email: emailOtp}).then(() => {
             navigate("/login")
             toast.success('Email is verified')
         }).catch(() => {
@@ -27,7 +26,7 @@ const VerifyOtp: React.FC = () => {
     };
 
     const resendOtp = async ()  => {
-        await axios.post(`https://findcourse.net.uz/api/users/send-otp`, {email: emailOtp}).then(() => {
+        await axios.post(`${API}/api/users/send-otp`, {email: emailOtp}).then(() => {
             toast.success('We send 5 digits verification code to your email')
         }).catch(() => {
             toast.error('Something went wrong')
