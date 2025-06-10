@@ -3,15 +3,18 @@ import { Select } from "antd"
 import axios from "axios";
 import { FaPowerOff } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { IoMdAddCircle } from "react-icons/io";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
+import { useEffect, useState } from "react";
+import HeaderSidebar from "./header-sidebar";
 
 const API = import.meta.env.VITE_API
 
 function Header() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
+    const url = useLocation()
 
     const fetchMydata = async () => {
         const res = await axios.get(`${API}/api/users/mydata`, {
@@ -21,6 +24,23 @@ function Header() {
         });
         return res.data;
     };
+
+
+    // skrolling header
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+        setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        
+        return () => {
+        window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
 
     const { data: myData} = useQuery({
         queryKey: ["mydata"],
@@ -35,45 +55,48 @@ function Header() {
 
     console.log(myData)
   return (
-    <header className="bg-[#ececec] px-5 md:px-10 py-[15px] fixed w-full z-99">
+    <header className={`${ scrolled ? "bg-[#e1e1e1] shadow-xl" : "bg-transparent"} px-5 md:px-10 py-[15px] fixed w-full z-99`}>
       <div className="flex items-center justify-between">
-        <Link to={'/'} className="max-w-[200px]">
+        <Link to={'/'} className={`max-w-[200px] ${scrolled ? "brightness-100" : "brightness-300"} `}>
           <img src="/logo.png" alt="logo" />
         </Link>
         <ul className="hidden lg:flex gap-[20px] items-center">
+
           <li className="group">
-            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
+            <Link to={'/'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Bosh sahifa
-              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>
           <li className="group">
-            <Link to={'/about'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
+            <Link to={'/about'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/about' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Biz haqimizda
-              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>
           <li className="group">
-            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
+            <Link to={'/resources'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/resources' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Resurslar
-              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>
           <li className="group">
-            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
+            <Link to={'/favorites'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Sevimlilar
-              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>
-          {token &&  <li>
-            <Link to={'/appointment'} className="text-[#5d556a]">
+          
+          {token &&  <li className="group">
+            <Link to={'/appointment'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Navbatlar
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>}
           {myData?.data?.role == 'CEO' &&  <li>
             <div className="group relative">
-              <div className="cursor-pointer">
-                <h2 className="text-[#5d556a]">CEO boshqaruv paneli</h2>
+              <div className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 cursor-pointer ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+                CEO boshqaruv paneli
               </div>
 
               <div className="group-hover:flex hidden absolute w-[200px]  p-[10px] bg-[#fff] rounded-[5px] flex-col">
@@ -97,7 +120,7 @@ function Header() {
                   borderRadius: 0,
               }}
               defaultValue="en"
-              style={{ width: 60 }}
+              style={{ width: 70 , background: "transparent"}}
               options={[
                   { value: 'en', label: 'en' },
                   { value: 'uz', label: 'uz' },
@@ -111,8 +134,7 @@ function Header() {
               <Link to={'/register'} className=" bg-[#461773] text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
                 Ro'yxatdan o'tish
               </Link>
-            </div>
-          } 
+          </div>}
           {token && <div className="group relative">
             <div className="flex rounded-[50px] cursor-pointer group-hover:bg-[#de9a7a] p-[3px] pr-[10px] items-center gap-[10px]">
               <div className="rounded-full bg-[#999] h-[30px] w-[30px] border-[1px] border-[#888]">
@@ -135,8 +157,8 @@ function Header() {
                   <p className="text-[red]">Chiqish</p>
                 </button>
             </div>
-          </div>
-          }
+          </div>}
+          <HeaderSidebar/>
         </div>
       </div>
     </header>
