@@ -1,4 +1,4 @@
-import { AboutComponent, AboutHeader } from "@/components"
+import { AboutComponent, AboutHeader, AboutInstuction, AboutMission, AboutPartners } from "@/components"
 import AboutResults from "@/components/about/about_results"
 
 function AboutPage() {
@@ -7,6 +7,9 @@ function AboutPage() {
         <AboutHeader/>
         <AboutComponent/>
         <AboutResults/>
+        <AboutMission/>
+        <AboutInstuction/>
+        <AboutPartners/>
     </>
   )
 }

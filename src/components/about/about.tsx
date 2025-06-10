@@ -1,13 +1,22 @@
 import { FaQuoteLeft } from "react-icons/fa"
+import { useEffect } from "react";
+import * as AOS from "aos";
+import "aos/dist/aos.css";
 
 function AboutComponent() {
+     useEffect(() => {
+        AOS.init({
+          duration: 1000,  
+          once: true,  
+        });
+      }, []);
   return (
     <section id="abot_mainsection" className="px-5 md:px-10 py-[80px]">
         <div className="max-w-[1200px] mx-auto">
-            <h2 className="text-[50px] text-center font-[600] text-[#461773] mb-[4px]">Talabalarni muvaffaqiyatga tayyorlash</h2>
+            <h2 data-aos="fade-right" className="text-[50px] text-center font-[600] text-[#461773] mb-[4px]">Talabalarni muvaffaqiyatga tayyorlash</h2>
             <div className="max-w-[150px] mx-auto h-[4px] rounded-[3px] bg-[gold] mb-[70px]"></div>
-            <div className="grid grid-cols-1  md:grid-cols-2 items-center gap-[30px] max-w-[900px] mx-auto">
-                <div className="order-2">
+            <div  className="grid grid-cols-1  md:grid-cols-2 items-center gap-[30px] max-w-[900px] mx-auto">
+                <div data-aos="fade-right" className="order-2">
                     <h3 className="text-[25px] font-[600] mb-[30px]">Ishonchli va muvaffaqiyatli o'quvchilarni shakllantirish</h3>
                     <p className="text-[16px] font-[400] text-[#999] mb-[30px]">Bizning platformamiz talabalarga qiziqishlari, byudjeti va hududiga mos keladigan ta'lim markazlarini topishda yordam beradi, eng yaxshi ta'lim tajribasini ta'minlaydi.</p>
                     <button className="text-[20px] mb-[30px] px-[40px] py-[10px] rounded-[30px] bg-[#461773] text-[#fff] outline-none">Ko'proq ko'rish</button>
@@ -16,7 +25,7 @@ function AboutComponent() {
                         <i className="text-[18px] font-[300]">Ushbu platforma mening uchun mukammal o'quv markazini topishni osonlashtirdi. Juda tavsiya etaman!</i>
                     </div>
                 </div>
-                <div className="rounded-[20px] overflow-hidden shadow-xl order-0 md:order-2">
+                <div data-aos="fade-left" className="rounded-[20px] overflow-hidden shadow-xl order-0 md:order-2">
                     <img src="/about/students-DxjhFuxo.png" alt="" />
                 </div>
             </div>

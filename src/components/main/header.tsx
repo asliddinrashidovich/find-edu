@@ -35,30 +35,34 @@ function Header() {
 
     console.log(myData)
   return (
-    <header className="bg-[#fff] px-5 md:px-10 py-[15px] fixed w-full z-99">
+    <header className="bg-[#ececec] px-5 md:px-10 py-[15px] fixed w-full z-99">
       <div className="flex items-center justify-between">
         <Link to={'/'} className="max-w-[200px]">
           <img src="/logo.png" alt="logo" />
         </Link>
         <ul className="hidden lg:flex gap-[20px] items-center">
-          <li>
-            <Link to={'/'} className="text-[#5d556a]">
+          <li className="group">
+            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
               Bosh sahifa
+              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
             </Link>
           </li>
-          <li>
-            <Link to={'/about'} className="text-[#5d556a]">
+          <li className="group">
+            <Link to={'/about'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
               Biz haqimizda
+              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
             </Link>
           </li>
-          <li>
-            <Link to={'/resources'} className="text-[#5d556a]">
+          <li className="group">
+            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
               Resurslar
+              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
             </Link>
           </li>
-          <li>
-            <Link to={'/'} className="text-[#5d556a]">
+          <li className="group">
+            <Link to={'/'} className="text-[#5d556a] transition-all duration-150 group-hover:text-[#461773] font-['Open_Sans'] text-[16px]">
               Sevimlilar
+              <div className="h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 bg-[#461773]"></div>
             </Link>
           </li>
           {token &&  <li>
