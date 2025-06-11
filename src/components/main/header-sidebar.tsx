@@ -1,8 +1,9 @@
+import { MydataType } from "@/interfaces"
 import { useState } from "react"
 import { FaBarsStaggered } from "react-icons/fa6"
 import { Link, useNavigate } from "react-router-dom"
 
-function HeaderSidebar() {
+function HeaderSidebar(myData: MydataType) {
     const [openSidebar, setOpenSideBar] = useState<boolean>(false)
     function handleOpen() {setOpenSideBar(true)}
     function handleClose() {setOpenSideBar(false)}
@@ -12,6 +13,7 @@ function HeaderSidebar() {
         navigate(path)
         setOpenSideBar(false)
     }
+    console.log(myData)
 
   return (
     <div className="lg:hidden flex">
@@ -19,7 +21,7 @@ function HeaderSidebar() {
             <FaBarsStaggered className="text-[#fff] text-[25px]"/>
         </button>
         {<div className={`fixed top-0 ${openSidebar ? "translate-x-0" : "translate-x-[100%]"} transition-liniar duration-200  right-0 bottom-0 bg-[#fff] w-[40%] z-30 `}>
-            {token && <div className="w-full h-[120px] bg-[#00000040] flex items-center px-[20px]">
+            {token && <div className="w-full h-[120px] bg-[#00000040] flex md:hidden items-center px-[20px]">
                 <div className="w-[80px] h-[80px] rounded-full bg-[#fff]">
                     
                 </div>

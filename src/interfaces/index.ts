@@ -216,3 +216,19 @@ export interface IResources {
     updatedAt: string
     user: UserType
 }
+export interface IMydata {
+    createdAt: string
+    email: string
+    firstName: string
+    id: number
+    image: string
+    isActive: boolean
+    lastName: string
+    password: string
+    phone: string
+    role: string
+}
+
+export interface MydataType {
+    myData: IMydata
+}

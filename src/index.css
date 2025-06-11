@@ -205,7 +205,7 @@ html {
   z-index: 1;
 }
 
-/* resources header */
+/* favorites header */
 .hero_favorites {
   background: url(/backgrounds/pexels-max-fischer-5212663.jpg) no-repeat center center / cover;
   background-attachment: fixed;
@@ -219,7 +219,7 @@ html {
   z-index: 1;
 }
 
-/* resources header */
+/* appointment header */
 .hero_appointment {
   background: url(/public/backgrounds/pexels-tima-miroshnichenko-6549601.jpg) no-repeat center center / cover;
   background-attachment: fixed;
@@ -233,7 +233,7 @@ html {
   z-index: 1;
 }
 
-/* resources header */
+/* create header */
 .hero_create_centers {
   background: url(/public/backgrounds/study-centers.jpg) no-repeat center center / cover;
   background-attachment: fixed;
@@ -246,7 +246,7 @@ html {
   background: rgba(0, 0, 0, 0.5); 
   z-index: 1;
 }
-/* resources header */
+/* my centers header */
 .hero_my_centers {
   background: url(/public/backgrounds/pexels-nullxtract-1184589.jpg) no-repeat center center / cover;
   background-attachment: fixed;

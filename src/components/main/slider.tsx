@@ -42,12 +42,12 @@ export default function Hero() {
       >
         {Slides.map((item, i) => (
           <SwiperSlide key={i}>
-            <div className='relative h-full max-w-[900px] w-full flex items-center'>
+            <div className='relative h-full max-w-[1000px] w-full flex items-center'>
               <div className='absolute z-2 w-[100vw] main__slider'>
                 <img src={item.img} className='w-[100vw]  h-[100vh] object-cover' alt="" />
               </div>
               <div className='absolute z-5 px-[50px] md:px-[100px]'>
-                <h1 className="text-[#fff] leading-[100%] text-[30px] md:text-[50px] font-[700] mb-[20px] font-['Open_Sans']"><AuroraText>{item.text}</AuroraText> </h1>
+                <h1 className="text-[#fff] leading-[100%] text-[30px] md:text-[60px] font-[700] mb-[20px] font-['Open_Sans']"><AuroraText>{item.text}</AuroraText> </h1>
                 <p className='text-[#999]'>{item.paragraph}</p>
               </div>
             </div>

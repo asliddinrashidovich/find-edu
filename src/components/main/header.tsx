@@ -50,7 +50,7 @@ function Header() {
     console.log(myData)
   return (
     <header className={`${skrolledCase ? "bg-[#e1e1e1] shadow-xl" : "bg-transparent"} px-5 md:px-10 py-[15px] fixed w-full z-99`}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-[10px]">
         <Link to={'/'} className={`max-w-[200px] ${skrolledCase ? "brightness-100" : "brightness-300"} `}>
           <img src="/logo.png" alt="logo" />
         </Link>
@@ -75,12 +75,12 @@ function Header() {
                 CEO boshqaruv paneli
               </div>
 
-              <div className="group-hover:flex hidden absolute w-[200px]  p-[10px] bg-[#fff] rounded-[5px] flex-col">
-                  <button onClick={() => navigate("/create-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+              <div className="group-hover:flex hidden absolute w-[200px]  p-[5px] bg-[#fff] rounded-[5px] flex-col">
+                  <button onClick={() => navigate("/create-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#461773] hover:text-[#fff] transition-all  duration-200  flex items-center gap-[7px]">
                     <IoMdAddCircle />
                     <p>Markaz yaratish</p>
                   </button>
-                  <button onClick={() => navigate("/my-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                  <button onClick={() => navigate("/my-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#461773] hover:text-[#fff] transition-all  duration-200  flex items-center gap-[7px]">
                     <HiMiniBuildingOffice2 />
                     <p>Mening markazlarim</p>
                   </button>
@@ -88,11 +88,13 @@ function Header() {
             </div>
           </li>}
         </ul>
-        <div className="flex gap-[20px] items-center">
-          <LanguageChanger/>
+        <div className="flex gap-[10px] items-center">
+          <div className="hidden md:flex">
+            <LanguageChanger/>
+          </div>
           <AuthComponent/>
-          {token && <div className="group relative">
-            <div className="flex rounded-[50px] cursor-pointer group-hover:bg-[#de9a7a] p-[3px] pr-[10px] items-center gap-[10px]">
+          {token && <div className="group hidden md:block relative">
+            <div className="flex rounded-[50px] cursor-pointer group-hover:bg-[#461773] text-[#fff] p-[3px] pr-[10px] items-center gap-[10px]">
               <div className="rounded-full bg-[#999] h-[30px] w-[30px] border-[1px] border-[#888]">
                 <img src="https://openclipart.org/image/2000px/247319" alt="" />
               </div>
@@ -101,20 +103,20 @@ function Header() {
               </div>
             </div>
 
-            <div className="group-hover:flex right-[0px] hidden w-[200px] absolute  p-[10px] bg-[#fff] rounded-[5px] flex-col">
+            <div className="group-hover:flex right-[0px] hidden max-w-[300px] absolute  p-[10px] bg-[#fff] rounded-[5px] flex-col">
                 <h2 className="text-[14px] font-[600] leading-[60%] mt-[10px]">{myData?.data?.firstName} {myData?.data?.lastName}</h2>
                 <p className="text-[14px] font-[300]">{myData?.data?.email}</p>
-                <button onClick={() => navigate("/profile")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                <button onClick={() => navigate("/profile")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#461773] flex items-center gap-[7px] hover:text-[#fff] transition-all duration-200 mb-[5px]">
                   <MdEdit />
                   <p>Profilni tahrirlash</p>
                 </button>
-                <button onClick={handleLogout} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#de9a7a] flex items-center gap-[7px]">
+                <button onClick={handleLogout} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#461773] flex items-center gap-[7px]">
                   <FaPowerOff className="text-[red]"/>
                   <p className="text-[red]">Chiqish</p>
                 </button>
             </div>
           </div>}
-          <HeaderSidebar/>
+          <HeaderSidebar myData={myData?.data}/>
         </div>
       </div>
     </header>
