@@ -179,11 +179,80 @@ html {
 
 /* hero header */
 .hero_about {
-  background: url(../public/backgrounds/pexels-tima-miroshnichenko-6550407.jpg) no-repeat center center / cover;
+  background: url(/backgrounds/pexels-tima-miroshnichenko-6550407.jpg) no-repeat center center / cover;
   background-attachment: fixed;
 }
 
 .hero_about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+/* resources header */
+.hero_resources {
+  background: url(/public/backgrounds/pexels-repuding-12064.jpg) no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+.hero_resources::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+/* resources header */
+.hero_favorites {
+  background: url(/backgrounds/pexels-max-fischer-5212663.jpg) no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+.hero_favorites::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+/* resources header */
+.hero_appointment {
+  background: url(/public/backgrounds/pexels-tima-miroshnichenko-6549601.jpg) no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+.hero_appointment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+
+/* resources header */
+.hero_create_centers {
+  background: url(/public/backgrounds/study-centers.jpg) no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+.hero_create_centers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+}
+/* resources header */
+.hero_my_centers {
+  background: url(/public/backgrounds/pexels-nullxtract-1184589.jpg) no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+.hero_my_centers::before {
   content: "";
   position: absolute;
   inset: 0;

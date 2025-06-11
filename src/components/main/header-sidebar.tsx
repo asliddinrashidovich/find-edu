@@ -1,39 +1,53 @@
 import { useState } from "react"
 import { FaBarsStaggered } from "react-icons/fa6"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function HeaderSidebar() {
     const [openSidebar, setOpenSideBar] = useState<boolean>(false)
     function handleOpen() {setOpenSideBar(true)}
     function handleClose() {setOpenSideBar(false)}
     const token = localStorage.getItem('token');
+    const  navigate = useNavigate()
+    function handleClick(path: string) {
+        navigate(path)
+        setOpenSideBar(false)
+    }
+
   return (
     <div className="lg:hidden flex">
         <button onClick={handleOpen} className="lg:hidden flex cursor-pointer">
             <FaBarsStaggered className="text-[#fff] text-[25px]"/>
         </button>
         {<div className={`fixed top-0 ${openSidebar ? "translate-x-0" : "translate-x-[100%]"} transition-liniar duration-200  right-0 bottom-0 bg-[#fff] w-[40%] z-30 `}>
-            <div className="w-full h-[120px] bg-[#00000040] flex items-center px-[20px]">
+            {token && <div className="w-full h-[120px] bg-[#00000040] flex items-center px-[20px]">
                 <div className="w-[80px] h-[80px] rounded-full bg-[#fff]">
                     
                 </div>
-            </div>
+            </div>}
+            {!token && <div className="flex md:hidden lg:flex-row flex-col gap-[20px] px-[20px] py-[20px] bg-[#00000040]">
+                <Link to={'/login'} className="border-[1px] w-full text-[12px] sm:text-[17px] lg:w-[50%] text-center border-[#461773] text-[#461773] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
+                    Kirish
+                </Link>
+                <Link to={'/register'} className=" bg-[#461773] w-full text-[12px] sm:text-[17px] lg:w-[50%] text-center text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
+                    Ro'yxatdan o'tish
+                </Link>
+            </div>}
             <div className="p-[20px] flex gap-[13px] flex-col">
-            <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start px-[20px] py-[10px] items-center bg-[#EBEFF3] relative">
-                <h3 className="text-[#545d6a]">Bosh sahifa</h3>
-            </Link>
-            <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start px-[20px] py-[10px] items-center bg-[#EBEFF3] relative">
-                <h3 className="text-[#545d6a]">Biz haqimizda</h3>
-            </Link>
-            <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start px-[20px] py-[10px] items-center bg-[#EBEFF3] relative">
-                <h3 className="text-[#545d6a]">Resurslar</h3>
-            </Link>
-            <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start px-[20px] py-[10px] items-center bg-[#EBEFF3] relative">
-                <h3 className="text-[#545d6a]">Sevimlilar</h3>
-            </Link>
-            {token && <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start px-[20px] py-[10px] items-center bg-[#EBEFF3] relative">
-                <h3 className="text-[#545d6a]">Navbatlar</h3>
-            </Link>}
+            <h3 onClick={() => handleClick("/")} className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] transition-all duration-200 w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px]  items-center bg-[#EBEFF3] relative">
+                Bosh sahifa 
+            </h3>
+            <h3 onClick={() => handleClick("/about")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
+                Biz haqimizda
+            </h3>
+            <h3 onClick={() => handleClick("/resources")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
+                Resurslar
+            </h3>
+            <h3 onClick={() => handleClick("/favorites")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
+                Sevimlilar
+            </h3>
+            {token && <h3 onClick={() => handleClick("/appointment")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
+                Navbatlar
+            </h3>}
             </div>
         </div>}
         {openSidebar && <div onClick={handleClose} className="fixed top-0 left-0 bottom-0 bg-black/50 w-[100%] brightness-50 z-20"></div>}

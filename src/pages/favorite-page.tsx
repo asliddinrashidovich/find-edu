@@ -1,7 +1,11 @@
+import { FavoriteHero, FavoritesSection } from "@/components"
 
 function FavoritePage() {
   return (
-    <div>FavoritePage</div>
+    <div>
+      <FavoriteHero/>
+      <FavoritesSection/>
+    </div>
   )
 }
 

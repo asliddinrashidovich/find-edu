@@ -6,7 +6,7 @@ import { IoSearchOutline, IoSearchSharp } from "react-icons/io5"
 
 const API = import.meta.env.VITE_API
 
-function HeaderResources() {
+function ResourcesCards() {
      const fetchFilterCategory = async () => {
         const res = await axios.get(`${API}/api/categories`);
         return res.data
@@ -28,7 +28,7 @@ function HeaderResources() {
     });
     console.log(courseCAtegory)
   return (
-    <section className="py-[80px] px-5 md:px-10">
+    <section id="resources_mainsection" className="py-[80px] px-5 md:px-10">
         <div className="max-w-[1200px] mx-auto ">
             <form className="p-[10px] flex items-center gap-[15px] rounded-[6px] border-[1px] border-[#999]">
                 <button type="submit" className="cursor-pointer">
@@ -86,4 +86,4 @@ function HeaderResources() {
   )
 }
 
-export default HeaderResources
+export default ResourcesCards

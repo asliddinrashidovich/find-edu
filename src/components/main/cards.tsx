@@ -27,7 +27,7 @@ function Cards() {
     });
     console.log(coursesData)
   return (
-    <section className="py-[80px] px-5 md:px-10">
+    <section id="study_centers" className="py-[80px] px-5 md:px-10">
         <div className="max-w-[1200px] mx-auto ">
             <div className="flex md:flex-row flex-col gap-[20px] justify-center mb-[40px]">
                 <form className="p-[10px] flex items-center gap-[15px] border-[1px] border-[#451774] rounded-[50px]">

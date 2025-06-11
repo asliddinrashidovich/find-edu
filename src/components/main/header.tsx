@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { Select } from "antd"
 import axios from "axios";
 import { FaPowerOff } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
@@ -8,6 +7,9 @@ import { IoMdAddCircle } from "react-icons/io";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import HeaderSidebar from "./header-sidebar";
+import LanguageChanger from "./language-changer";
+import AuthComponent from "./auth-component";
+import { NavbarData } from "@/data/data";
 
 const API = import.meta.env.VITE_API
 
@@ -25,22 +27,15 @@ function Header() {
         return res.data;
     };
 
-
     // skrolling header
     const [scrolled, setScrolled] = useState(false);
+    const skrolledCase = scrolled || url.pathname == '/login' || url.pathname == '/register' || url.pathname == '/register/verify-otp' || url.pathname == '/profile'
 
     useEffect(() => {
-        const handleScroll = () => {
-        setScrolled(window.scrollY > 50);
-        };
-
+        const handleScroll = () => {setScrolled(window.scrollY > 50);};
         window.addEventListener("scroll", handleScroll);
-        
-        return () => {
-        window.removeEventListener("scroll", handleScroll);
-        };
+        return () => {window.removeEventListener("scroll", handleScroll)};
     }, []);
-
 
     const { data: myData} = useQuery({
         queryKey: ["mydata"],
@@ -52,50 +47,31 @@ function Header() {
       localStorage.removeItem('refreshToken')
       window.location.reload()
     }
-
     console.log(myData)
   return (
-    <header className={`${ scrolled ? "bg-[#e1e1e1] shadow-xl" : "bg-transparent"} px-5 md:px-10 py-[15px] fixed w-full z-99`}>
+    <header className={`${skrolledCase ? "bg-[#e1e1e1] shadow-xl" : "bg-transparent"} px-5 md:px-10 py-[15px] fixed w-full z-99`}>
       <div className="flex items-center justify-between">
-        <Link to={'/'} className={`max-w-[200px] ${scrolled ? "brightness-100" : "brightness-300"} `}>
+        <Link to={'/'} className={`max-w-[200px] ${skrolledCase ? "brightness-100" : "brightness-300"} `}>
           <img src="/logo.png" alt="logo" />
         </Link>
         <ul className="hidden lg:flex gap-[20px] items-center">
-
-          <li className="group">
-            <Link to={'/'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
-              Bosh sahifa
-              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
-            </Link>
-          </li>
-          <li className="group">
-            <Link to={'/about'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/about' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
-              Biz haqimizda
-              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
-            </Link>
-          </li>
-          <li className="group">
-            <Link to={'/resources'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/resources' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
-              Resurslar
-              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
-            </Link>
-          </li>
-          <li className="group">
-            <Link to={'/favorites'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
-              Sevimlilar
-              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
-            </Link>
-          </li>
-          
+          {NavbarData.map((item) => (
+            <li className="group" key={item.text}>
+              <Link to={item.slug} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == item.slug ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+                {item.text}
+                <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ skrolledCase ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
+              </Link>
+            </li>
+          ))}
           {token &&  <li className="group">
-            <Link to={'/appointment'} className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+            <Link to={'/appointment'} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
               Navbatlar
-              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ scrolled ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
+              <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ skrolledCase ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>}
-          {myData?.data?.role == 'CEO' &&  <li>
+          {token && <li>
             <div className="group relative">
-              <div className={`${scrolled ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 cursor-pointer ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+              <div className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 cursor-pointer ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
                 CEO boshqaruv paneli
               </div>
 
@@ -113,28 +89,8 @@ function Header() {
           </li>}
         </ul>
         <div className="flex gap-[20px] items-center">
-          <Select
-              dropdownStyle={{
-                  background: 'white',
-                  boxShadow: 'none',
-                  borderRadius: 0,
-              }}
-              defaultValue="en"
-              style={{ width: 70 , background: "transparent"}}
-              options={[
-                  { value: 'en', label: 'en' },
-                  { value: 'uz', label: 'uz' },
-                  { value: 'ru', label: 'ru' },
-              ]}
-          />
-          {!token && <div className="hidden md:flex gap-[7px] items-center">
-              <Link to={'/login'} className="border-[1px] border-[#461773] text-[#461773] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-                Kirish
-              </Link>
-              <Link to={'/register'} className=" bg-[#461773] text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-                Ro'yxatdan o'tish
-              </Link>
-          </div>}
+          <LanguageChanger/>
+          <AuthComponent/>
           {token && <div className="group relative">
             <div className="flex rounded-[50px] cursor-pointer group-hover:bg-[#de9a7a] p-[3px] pr-[10px] items-center gap-[10px]">
               <div className="rounded-full bg-[#999] h-[30px] w-[30px] border-[1px] border-[#888]">

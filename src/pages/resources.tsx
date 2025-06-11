@@ -1,10 +1,10 @@
-import { HeaderResources, HeroResources } from "@/components"
+import { HeroResources, ResourcesCards } from "@/components"
 
 function Resources() {
   return (
     <>
-        <HeroResources/>
-        <HeaderResources/>
+      <HeroResources/>
+      <ResourcesCards/>
     </>
   )
 }

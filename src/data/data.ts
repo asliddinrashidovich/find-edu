@@ -15,3 +15,22 @@ export const Slides = [
         paragraph: "Bizning platformamiz talabalarga qiziqishlari, byudjeti va hududiga mos keladigan ta'lim markazlarini topishda yordam beradi."
     },
 ]
+
+export const NavbarData = [
+    {
+        slug: "/",
+        text: "Bosh sahifa"
+    },
+    {
+        slug: "/about",
+        text: "Biz haqimizda"
+    },
+    {
+        slug: "/resources",
+        text: "Resurslar"
+    },
+    {
+        slug: "/favorites",
+        text: "Sevimlilar"
+    },
+]

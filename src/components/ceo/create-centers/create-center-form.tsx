@@ -1,6 +1,8 @@
 function CreateCenterForm() {
   return (
-    <div>CreateCenterForm</div>
+    <section id="create_centers_mainsection">
+      CreateCenterForm
+    </section>
   )
 }
 
