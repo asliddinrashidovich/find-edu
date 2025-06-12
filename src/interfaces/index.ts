@@ -228,6 +228,9 @@ export interface IMydata {
     phone: string
     role: string
 }
+export interface CenterType {
+    data: Iproduct
+}
 
 export interface MydataType {
     myData: IMydata

@@ -68,10 +68,10 @@ function Footer() {
             <div className="flex sm:flex-row flex-col-reverse gap-[20px] sm:gap-[0px] justify-between items-center">
                 <p className="text-[15px] text-[#888]">© 2025 Findedu. All Rights Reserved. Best Girls</p>
                 <div className="flex  gap-[20px] items-center">
-                    <Link to={'#'}><SlSocialFacebook className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
-                    <Link to={'#'}><FaInstagram className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
-                    <Link to={'#'}><FaTelegramPlane className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
-                    <Link to={'#'}><FaYoutube className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
+                    <Link to={'https://www.facebook.com/confirmemail.php?next=https%3A%2F%2Fwww.facebook.com%2F#'}><SlSocialFacebook className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
+                    <Link to={'https://www.instagram.com'}><FaInstagram className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
+                    <Link to={'https://web.telegram.org'}><FaTelegramPlane className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
+                    <Link to={'https://www.youtube.com'}><FaYoutube className="text-[#888] hover:text-[#fff] transition-all duration-200 text-[30px]"/></Link>
                 </div>
             </div>
         </div>

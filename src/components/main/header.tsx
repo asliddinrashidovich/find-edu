@@ -54,24 +54,24 @@ function Header() {
         <Link to={'/'} className={`max-w-[200px] ${skrolledCase ? "brightness-100" : "brightness-300"} `}>
           <img src="/logo.png" alt="logo" />
         </Link>
-        <ul className="hidden lg:flex gap-[20px] items-center">
+        <ul className="hidden lg:flex   max-[1270px]:gap-[10px] gap-[20px] items-center">
           {NavbarData.map((item) => (
             <li className="group" key={item.text}>
-              <Link to={item.slug} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == item.slug ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+              <Link to={item.slug} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == item.slug ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px] max-[1270px]:text-[14px]`}>
                 {item.text}
                 <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ skrolledCase ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
               </Link>
             </li>
           ))}
           {token &&  <li className="group">
-            <Link to={'/appointment'} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+            <Link to={'/appointment'} className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px] max-[1270px]:text-[13px]`}>
               Navbatlar
               <div className={`h-[3px] rounded-[3px] group-hover:w-full w-[0px] transition-all duration-200 ${ skrolledCase ? "bg-[#461773]" : "bg-[#ce9aff]"}`}></div>
             </Link>
           </li>}
-          {token && <li>
+          {myData?.data?.role == 'CEO' && <li>
             <div className="group relative">
-              <div className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 cursor-pointer ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px]`}>
+              <div className={`${skrolledCase ? "group-hover:text-[#461773] text-[#000] " : "text-[#fff] group-hover:text-[#ce9aff]"} transition-all duration-150 cursor-pointer ${url.pathname == '/favorites' ? "font-[700]" : "font-[500]"}  font-['Open_Sans'] text-[16px] max-[1270px]:text-[13px]`}>
                 CEO boshqaruv paneli
               </div>
 
@@ -99,7 +99,7 @@ function Header() {
                 <img src="https://openclipart.org/image/2000px/247319" alt="" />
               </div>
               <div>
-                <h2>{myData?.data?.firstName} {myData?.data?.lastName}</h2>
+                <h2 className={`${skrolledCase ? 'text-[#999]': 'text-[#fff]'}`}>{myData?.data?.firstName} {myData?.data?.lastName}</h2>
               </div>
             </div>
 
