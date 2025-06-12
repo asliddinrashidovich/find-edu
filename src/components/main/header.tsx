@@ -24,6 +24,7 @@ function Header() {
             Authorization: `Bearer ${token}`,
           },
         });
+        localStorage.setItem('user', JSON.stringify(res.data.data))
         return res.data;
     };
 
@@ -43,8 +44,7 @@ function Header() {
     });
 
     const handleLogout = () => {
-      localStorage.removeItem('token')
-      localStorage.removeItem('refreshToken')
+      localStorage.clear()
       window.location.reload()
     }
     console.log(myData)

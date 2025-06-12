@@ -2,15 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import { IoSearchOutline } from "react-icons/io5"
 import axios from "axios";
 import { MdLocalPhone } from "react-icons/md";
-import { Iproduct } from "@/interfaces";
+import { Iproduct, UserType } from "@/interfaces";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { IoMdHeart } from "react-icons/io";
 
 const API = import.meta.env.VITE_API
 
 function Cards() {
     const [search, setSearch] = useState<string>("")
+    const [liked, setLiked] = useState<boolean>(false)
+    const token = localStorage.getItem('token');
+    const userDataRaw = localStorage.getItem('user');
+    const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const navigate = useNavigate()
 
     const handleSearch = (value: string) => {
@@ -25,12 +31,46 @@ function Cards() {
     };
 
     const { data: coursesData} = useQuery({
-        queryKey: ["coursesQuery", search],
+        queryKey: ["coursesQuery", search, liked],
         queryFn: fetchStudyCenter,
     });
 
-    async function handleLike() {
+    // like item
+    async function handleLike(centerId: number) {
         console.log('liked')
+        await axios.post(`${API}/api/liked`, {centerId}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            console.log('liked')
+            setLiked(prev => prev ? false : true)
+        }).catch((err) => {
+            if(err.status == 401) {
+                toast.error('Please Login to like centers')
+            } else {
+                toast.error('Something went wrong')
+            }
+        })
+    }
+
+    // unlike item
+    async function handleUnLike(centerId) {
+        console.log('liked')
+        await axios.delete(`${API}/api/liked/${centerId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            console.log('unliked')
+            setLiked(prev => prev ? false : true)
+        }).catch((err) => {
+            if(err.status == 401) {
+                toast.error('Please Login to like centers')
+            } else {
+                toast.error('Something went wrong')
+            }
+        })
     }
 
     function handleClick(id: number) {
@@ -54,9 +94,12 @@ function Cards() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px] md:gap-[70px]">
                 {coursesData?.map((item: Iproduct) => (
                     <div key={item.id} className="rounded-[15px] shadow-xl overflow-hidden cursor-pointer hover:scale-[103%] translate-all duration-200 relative">
-                        <div onClick={() => handleLike()} className="w-[30px] h-[30px] bg-[#d5d5d5] rounded-[50%] absolute top-[10px] right-[10px] flex items-center justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                        {!item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleLike(item.id)} className="w-[30px] h-[30px] bg-[#d5d5d5] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
                             <FaRegHeart className="text-[#ef4444]"/>
-                        </div>
+                        </button>}
+                        {item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleUnLike(item.likes.find((filteredItem) => filteredItem.userId == user?.id)?.id)} className="w-[30px] h-[30px] bg-[#d5d5d5] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                            {<IoMdHeart className="text-[#ef4444]"/>}
+                        </button>}
                         <div onClick={() => handleClick(item.id)}>
                             <div className="h-[300px] md:h-[200px]">
                                 <img src={`https://findcourse.net.uz/api/image/${item.image}`}  className="w-full h-full object-cover" alt="" />
