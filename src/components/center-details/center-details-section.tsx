@@ -41,7 +41,7 @@ function CenterDetailsSection() {
                     <h3 className="text-[30px] font-[700]">{coursesDetailsData?.data.name}</h3>
                     <div className="rounded-[30px] flex bg-[#F3E8FF] py-[3px] px-[10px] cursor-pointer gap-[3px] items-center">
                         <FaStar className="text-[20px] text-[#eab308]"/>
-                        <span className="text-[18px] leading-[100%]">3</span>
+                        <span className="text-[18px] leading-[100%]">{coursesDetailsData?.data?.comments.length ? (coursesDetailsData?.data?.comments.reduce((star1, star2) => star1 + star2.star, 0) / coursesDetailsData?.data?.comments.length).toFixed(1) : '0.0'}</span>
                     </div>
                 </div>
                 <div className="flex items-center text-[#444] justify-start gap-[10px] mb-[20px]">

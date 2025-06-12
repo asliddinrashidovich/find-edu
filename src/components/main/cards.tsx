@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { IoSearchOutline } from "react-icons/io5"
 import axios from "axios";
 import { MdLocalPhone } from "react-icons/md";
-import { Iproduct, UserType } from "@/interfaces";
+import { Iproduct, likedProductType, UserType } from "@/interfaces";
 import { useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IoMdHeart } from "react-icons/io";
@@ -55,9 +55,10 @@ function Cards() {
     }
 
     // unlike item
-    async function handleUnLike(centerId) {
+    async function handleUnLike(likes: likedProductType[]) {
+        const id = likes.find((filteredItem) => filteredItem.userId == user?.id)?.id
         console.log('liked')
-        await axios.delete(`${API}/api/liked/${centerId}`,{
+        await axios.delete(`${API}/api/liked/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -94,10 +95,10 @@ function Cards() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px] md:gap-[70px]">
                 {coursesData?.map((item: Iproduct) => (
                     <div key={item.id} className="rounded-[15px] shadow-xl overflow-hidden cursor-pointer hover:scale-[103%] translate-all duration-200 relative">
-                        {!item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleLike(item.id)} className="w-[30px] h-[30px] bg-[#d5d5d5] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                        {!item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleLike(item.id)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
                             <FaRegHeart className="text-[#ef4444]"/>
                         </button>}
-                        {item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleUnLike(item.likes.find((filteredItem) => filteredItem.userId == user?.id)?.id)} className="w-[30px] h-[30px] bg-[#d5d5d5] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                        {item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleUnLike(item.likes)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
                             {<IoMdHeart className="text-[#ef4444]"/>}
                         </button>}
                         <div onClick={() => handleClick(item.id)}>
@@ -105,7 +106,13 @@ function Cards() {
                                 <img src={`https://findcourse.net.uz/api/image/${item.image}`}  className="w-full h-full object-cover" alt="" />
                             </div>
                             <div className="py-[20px] px-[15px]">
-                                <h3 className="mb-[10px] text-[18px] font-[600]">{item.name}</h3>
+                                <div className="flex items-center justify-between">
+                                    <h3 className="mb-[10px] text-[18px] font-[600]">{item.name}</h3>
+                                    <div className="flex items-center gap-[5px]">
+                                        <FaStar className="text-[#eab308]" />
+                                        {item.comments.length ? (item.comments.reduce((star1, star2) => star1 + star2.star, 0) / item.comments.length).toFixed(1) : '0.0'}
+                                    </div>
+                                </div>
                                 <p className="text-[#888] text-[14px] mb-[10px]">{item.address}</p>
                                 <div className="mb-[10px] flex gap-[10px] items-center">
                                     <MdLocalPhone className="text-[#888] "/>
