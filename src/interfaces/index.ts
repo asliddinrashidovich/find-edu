@@ -14,7 +14,7 @@ export interface Iproduct {
 }
 
 export interface likedProductType {
-    centerId: string
+    centerId: number
     createdAt: string
     id: number
     updatedAt: string
@@ -34,6 +34,7 @@ export interface UserType {
     id: number
     image: string
     isActive: boolean
+    likes: likedProductType[]
     lastName: string
     phone: string
     role: string

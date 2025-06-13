@@ -11,7 +11,7 @@ import { IoMdHeart } from "react-icons/io";
 
 const API = import.meta.env.VITE_API
 
-function Cards() {
+function FavoritesSection() {
     const [search, setSearch] = useState<string>("")
     const [liked, setLiked] = useState<boolean>(false)
     const token = localStorage.getItem('token');
@@ -19,27 +19,40 @@ function Cards() {
     const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const navigate = useNavigate()
 
+    console.log(user?.likes)
     const handleSearch = (value: string) => {
         setSearch(value)
     }
-    const fetchLikedCenters = async () => {
+    const fetchMydata = async () => {
         const res = await axios.get(`${API}/api/users/mydata`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        localStorage.setItem('user', JSON.stringify(res.data.data))
         return res.data;
     };
-
-    const { data: likedProducts} = useQuery({
-        queryKey: ["liked-all", search, liked],
-        queryFn: fetchLikedCenters,
+      
+    const { data: myData} = useQuery({
+        queryKey: ["mydataforLikes", liked],
+        queryFn: fetchMydata,
     });
-    console.log(likedProducts)
+    console.log(myData)
+    const fetchStudyCenter = async () => {
+        const res = await axios.get(`${API}/api/centers`);
+        const allProducts =  res?.data?.data;
+        const allIdOfCenters = user?.likes.map(item => item.centerId) 
+        const filtered = allProducts.filter((product: Iproduct) => allIdOfCenters?.includes(product.id) );
+        return filtered
+    };
+
+    const { data: coursesData} = useQuery({
+        queryKey: ["coursesLiked", search, liked, user],
+        queryFn: fetchStudyCenter,
+    });
 
     // like item
     async function handleLike(centerId: number) {
-        console.log('liked')
         await axios.post(`${API}/api/liked`, {centerId}, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -59,7 +72,6 @@ function Cards() {
     // unlike item
     async function handleUnLike(likes: likedProductType[]) {
         const id = likes.find((filteredItem) => filteredItem.userId == user?.id)?.id
-        console.log('liked')
         await axios.delete(`${API}/api/liked/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -94,12 +106,12 @@ function Cards() {
                 </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px] md:gap-[70px]">
-                {likedProducts?.data?.likes?.map((item: Iproduct) => (
+                {coursesData?.map((item: Iproduct) => (
                     <div key={item.id} className="rounded-[15px] shadow-xl overflow-hidden cursor-pointer hover:scale-[103%] translate-all duration-200 relative">
-                        {!item?.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleLike(item.id)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                        {!item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleLike(item.id)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
                             <FaRegHeart className="text-[#ef4444]"/>
                         </button>}
-                        {item?.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleUnLike(item.likes)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
+                        {item.likes.some((itemIndex) => itemIndex.userId == user?.id) && <button onClick={() => handleUnLike(item.likes)} className="w-[30px] h-[30px] bg-[#dce4ef] rounded-[50%] absolute top-[10px] right-[10px] flex items-center cursor-pointer justify-center hover:scale-[105%] transition-all duration-100 hover:bg-[#999]">
                             {<IoMdHeart className="text-[#ef4444]"/>}
                         </button>}
                         <div onClick={() => handleClick(item.id)}>
@@ -129,4 +141,4 @@ function Cards() {
   )
 }
 
-export default Cards
+export default FavoritesSection

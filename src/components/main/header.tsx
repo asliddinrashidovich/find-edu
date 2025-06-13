@@ -27,7 +27,11 @@ function Header() {
         localStorage.setItem('user', JSON.stringify(res.data.data))
         return res.data;
     };
-
+      
+      const { data: myData} = useQuery({
+          queryKey: ["mydata"],
+          queryFn: fetchMydata,
+      });
     // skrolling header
     const [scrolled, setScrolled] = useState(false);
     const skrolledCase = scrolled || url.pathname == '/login' || url.pathname == '/register' || url.pathname == '/register/verify-otp' || url.pathname == '/profile'
@@ -38,10 +42,6 @@ function Header() {
         return () => {window.removeEventListener("scroll", handleScroll)};
     }, []);
 
-    const { data: myData} = useQuery({
-        queryKey: ["mydata"],
-        queryFn: fetchMydata,
-    });
 
     const handleLogout = () => {
       localStorage.clear()
