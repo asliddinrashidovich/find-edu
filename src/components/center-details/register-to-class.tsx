@@ -29,7 +29,7 @@ function RegisterToClass({filials, majors}: {filials: filalType[] | undefined; m
     const handleOk = () => {setIsModalOpen(false)};
     const handleCancel = () => {setIsModalOpen(false)};
 
-     // register
+    // register
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         setLoadingButton(true)

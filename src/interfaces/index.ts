@@ -87,6 +87,9 @@ export interface CenterType {
 export interface MydataType {
     myData: IMydata
 }
+export interface MydataType2 {
+    data: UserType
+}
 
 export interface filalType {
     address: string
