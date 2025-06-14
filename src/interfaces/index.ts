@@ -22,6 +22,21 @@ export interface likedProductType {
     userId: number
 }
 
+export interface reseption {
+    center: Iproduct
+    centerId: number
+    createdAt: string
+    filial: filalType
+    filialId: number
+    id: number
+    major: IMajor
+    majorId: number
+    status: string
+    updatedAt: string
+    userId: number
+    visitDate: string
+}
+
 export interface ICategory {
     id: number
     name: string
@@ -36,6 +51,7 @@ export interface UserType {
     image: string
     isActive: boolean
     likes: likedProductType[]
+    receptions: reseption[]
     lastName: string
     phone: string
     role: string
