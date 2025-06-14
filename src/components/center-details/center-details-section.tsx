@@ -9,13 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IoIosCalendar } from "react-icons/io";
 import { PiStudentBold } from "react-icons/pi";
 import { GrHomeOption } from "react-icons/gr";
-import { MdOutlineWatchLater } from "react-icons/md";
 import { format } from 'date-fns';
 import CommentsSkeleton from "../skeleton/comments-skeleton";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 import { CiEdit } from "react-icons/ci";
+import RegisterToClass from "./register-to-class";
 
 const API = import.meta.env.VITE_API
 
@@ -95,11 +95,15 @@ function CenterDetailsSection() {
             console.log(err)
         }
     }
+    const handleClickBranches = (prevId: number) => {
+        navigate(`/branches/${prevId}`)
+        localStorage.setItem('prevCenter', JSON.stringify(prevId))
+    }
     const handleRateChange = (value: number) => {setStar(value)};
     const handleRateChange2 = (value: number) => {setStar2(value)};
 
   return (
-    <section className="px-5 md:px-10 pt-[100px]">
+    <section className="px-5 md:px-10 pb-[70px] pt-[100px]">
         <button onClick={() => navigate('/')} className="flex gap-[7px]  items-center hover:text-[#451774] transition-all duration-200 cursor-pointer mb-[30px]">
             <IoArrowBack className="text-[25px]"/>
             <span className="text-[20px]">Markazlarga qaytish</span>
@@ -205,7 +209,7 @@ function CenterDetailsSection() {
             <div className="w-full lg:w-[40%] mb-[80px]">
                 <h3 className="text-[25px] text-[#111] font-[600] mb-[10px]">Bizning filiallar</h3>
                 {coursesDetailsData?.data.filials.map((item) => (
-                    <div className="bg-[#f3e8ff] border-[1px] border-[#e2c8fe] rounded-[10px] py-[20px] px-[10px]" key={item.id}> 
+                    <div onClick={() => handleClickBranches(item.id)} className="bg-[#f3e8ff] border-[1px] cursor-pointer border-[#e2c8fe] rounded-[10px] py-[20px] px-[10px]" key={item.id}> 
                         <h5 className="mb-[2px]">{item.name}</h5>
                         <p className="text-[#555] text-[15px]">{item.address}</p>
                     </div>
@@ -214,16 +218,15 @@ function CenterDetailsSection() {
                     <PiStudentBold className="text-[25px]"/>
                     <span className="text-[25px] text-[#111] font-[600]">Mavjud kurslar</span>
                 </div>
-                <button className="border-[2px] cursor-pointer border-[#451774] rounded-[10px] p-[7px] flex items-center gap-[7px] mb-[20px]">
-                    <div className="w-[30px] h-[30px] rounded-[4px] bg-[#f3e8ff] flex items-center justify-center">
-                        <GrHomeOption/>
-                    </div>
-                    <p>Optional</p>
-                </button>
-                <button className="bg-[#451774] flex items-center gap-[10px] cursor-pointer p-[10px] rounded-[10px] text-[#fff]">
-                    <MdOutlineWatchLater  className="text-[20px] "/>
-                    Darsga yozilish
-                </button>
+                {coursesDetailsData?.data.majors.map((item) => (
+                    <button key={item.id} className="border-[2px] cursor-pointer border-[#451774] rounded-[10px] p-[7px] flex items-center gap-[7px] mb-[20px]">
+                        <div className="w-[30px] h-[30px] rounded-[4px] bg-[#f3e8ff] flex items-center justify-center">
+                            <GrHomeOption/>
+                        </div>
+                        <p>{item.name}</p>
+                    </button>
+                ))}
+                <RegisterToClass filials={coursesDetailsData?.data?.filials} majors={coursesDetailsData?.data.majors}/>
             </div>
         </div>
     </section>

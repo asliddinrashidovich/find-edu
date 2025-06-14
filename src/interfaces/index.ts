@@ -11,6 +11,7 @@ export interface Iproduct {
     filials: filalType[]
     comments: IComment[]
     likes: likedProductType[]
+    majors: IMajor[]
 }
 
 export interface likedProductType {
