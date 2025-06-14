@@ -8,42 +8,72 @@ import { FaRegHeart, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IoMdHeart } from "react-icons/io";
+import NoData from "../no-data/no-data";
+import CentersCardSkeleton from "../skeleton/cards-skleton";
+import FilterCenters from "./filter";
+import { Pagination } from "antd";
 
 const API = import.meta.env.VITE_API
 
 function Cards() {
     const [search, setSearch] = useState<string>("")
     const [liked, setLiked] = useState<boolean>(false)
+    const [branchList, setBranchList] = useState<string[]>([])
+    const [centerlocationList, setCenterlocationList] = useState<string[]>([])
     const token = localStorage.getItem('token');
     const userDataRaw = localStorage.getItem('user');
     const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
+    const [currentPage, setCurrentPage] = useState(1)
+    const pageSize = 6;
+
     const navigate = useNavigate()
 
-    const handleSearch = (value: string) => {
-        setSearch(value)
-    }
+    const handleSearch = (value: string) => {setSearch(value)}
+
+    // get major
+    const fetchCentersBranches = async () => {
+        const res = await axios.get(`${API}/api/major`);
+        return res.data
+    };
+    const { data: centerMajor} = useQuery({
+        queryKey: ["coursesMajor", search, liked],
+        queryFn: fetchCentersBranches,
+    });
+
+    // get regions
+    const fetchLocationsCenters = async () => {
+        const res = await axios.get(`${API}/api/regions/search`);
+        return res.data
+    };
+    const { data: centerLocations} = useQuery({
+        queryKey: ["centersLocations", search, liked],
+        queryFn: fetchLocationsCenters,
+    });
+
+    // get centers
     const fetchStudyCenter = async () => {
         const res = await axios.get(`${API}/api/centers`);
         const allProducts =  res?.data?.data;
-      
+        
         const filtered = allProducts.filter((product: Iproduct) =>  product.name.toLowerCase().includes(search.toLowerCase()) );
-        return filtered
+        
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginated = filtered.slice(startIndex, endIndex);
+        return paginated;
     };
-
-    const { data: coursesData} = useQuery({
-        queryKey: ["coursesQuery", search, liked],
+    const { data: coursesData, isLoading: loading} = useQuery<Iproduct[]>({
+        queryKey: ["coursesQuery", search, liked, currentPage],
         queryFn: fetchStudyCenter,
     });
 
     // like item
     async function handleLike(centerId: number) {
-        console.log('liked')
         await axios.post(`${API}/api/liked`, {centerId}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(() => {
-            console.log('liked')
             setLiked(prev => prev ? false : true)
         }).catch((err) => {
             if(err.status == 401) {
@@ -57,13 +87,11 @@ function Cards() {
     // unlike item
     async function handleUnLike(likes: likedProductType[]) {
         const id = likes.find((filteredItem) => filteredItem.userId == user?.id)?.id
-        console.log('liked')
         await axios.delete(`${API}/api/liked/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(() => {
-            console.log('unliked')
             setLiked(prev => prev ? false : true)
         }).catch((err) => {
             if(err.status == 401) {
@@ -74,10 +102,34 @@ function Cards() {
         })
     }
 
+    // click to center details page
     function handleClick(id: number) {
         navigate(`/centers/${id}`)
     }
-    console.log(coursesData)
+
+    // add remove filter items
+    function handleRemoveBranch(item: string) {
+        setBranchList(prev => prev.filter(prevItem => prevItem != item))
+    }
+    function handleRemoveLocation(item: string) {
+        setCenterlocationList(prev => prev.filter(prevItem => prevItem != item))
+    }
+    function handleAddBranch(item: string) {
+        setBranchList(prev => [...prev, item])
+    }
+    function handleAddLocation(item: string) {
+        setCenterlocationList(prev => [...prev, item])
+    }
+
+     // get total centers
+    const getDataTotalProdcuts = async () => {
+        const res = await axios.get(`${API}/api/centers`);
+        return res.data
+    }
+    const { data: totalCountData} = useQuery({
+        queryKey: ["total-data", search, liked, currentPage],
+        queryFn: getDataTotalProdcuts,
+    });
   return (
     <section id="study_centers" className="py-[80px] px-5 md:px-10">
         <div className="max-w-[1200px] mx-auto ">
@@ -88,9 +140,21 @@ function Cards() {
                     </button>
                     <input type="text" value={search} onChange={(e) => handleSearch(e.target.value)} placeholder="Kasb, fan yoki o'quv markaz nomini kiriting" className="w-[400px] lg:w-[600px] outline-none"/>
                 </form>
-                <button className="text-[#fff] p-[10px] bg-[#451774] rounded-[10px] cursor-pointer">
-                    Kurslar va Hududlar
-                </button>
+                <FilterCenters branchList={branchList} centerlocationList={centerlocationList} handleRemoveBranch={handleRemoveBranch} handleRemoveLocation={handleRemoveLocation} handleAddLocation={handleAddLocation}  handleAddBranch={handleAddBranch} centerMajor={centerMajor?.data} centerLocations={centerLocations?.data}/>
+            </div>
+            <div className="w-full flex justify-center gap-[10px] items-center mb-[30px]">
+                {branchList.map((item, i) => (
+                    <div key={i} className="flex flex-wrap bg-[#dbeafe] py-[5px] px-[10px] items-center gap-[10px] rounded-[10px]">
+                        <span>{item}</span>
+                        <button onClick={() => handleRemoveBranch(item)} className="text-[10px] cursor-pointer">✕</button>
+                    </div>
+                ))}
+                {centerlocationList.map((item, i) => (
+                    <div key={i} className="flex flex-wrap bg-[#f3e8ff] py-[5px] px-[10px] items-center gap-[10px] rounded-[10px]">
+                        <span>{item}</span>
+                        <button onClick={() => handleRemoveLocation(item)} className="text-[10px] cursor-pointer">✕</button>
+                    </div>
+                ))}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px] md:gap-[70px]">
                 {coursesData?.map((item: Iproduct) => (
@@ -122,6 +186,19 @@ function Cards() {
                         </div>
                     </div>
                 ))}
+                {!loading && Array.isArray(coursesData) && !coursesData.length && (
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 ">
+                        <NoData>Malumotlar topilmadi</NoData>
+                    </div>
+                )}
+                {loading && ( 
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 ">
+                        <CentersCardSkeleton/>
+                    </div>
+                )}
+            </div>
+            <div className="flex justify-center my-[40px]">
+                <Pagination total={totalCountData?.total} current={currentPage} pageSize={pageSize} onChange={(e) => setCurrentPage(e)}/>
             </div>
         </div>
     </section>

@@ -97,3 +97,11 @@ export interface IComment {
     user: UserType
     userId: number
 }
+
+export interface IMajor {
+    centers: Iproduct[]
+    id: number
+    image: string
+    name: string
+    subjectId: number
+}

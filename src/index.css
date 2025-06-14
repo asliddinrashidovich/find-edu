@@ -163,6 +163,13 @@
   }
 }
 
+
+/* skeleton */
+.skeleton-img {
+  width: 100% !important;
+  height: 200px !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
