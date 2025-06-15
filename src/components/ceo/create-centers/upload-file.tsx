@@ -1,24 +1,49 @@
+import axios, { AxiosError } from "axios";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { FaRegImage } from "react-icons/fa";
+const API = import.meta.env.VITE_API
 
 interface ImageUploadProps {
   onFileSelect: (file: File | null) => void;
+  setImage: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect, setImage }) => {
+  const token = localStorage.getItem('token')
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile && validateFile(selectedFile)) {
-      setFile(selectedFile);
-      setPreviewUrl(URL.createObjectURL(selectedFile));
-      onFileSelect(selectedFile);
-    }
-  };
+  // upload an image
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    try {
+      const res = await axios.post(`${API}/api/upload`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        setFile(file);
+        setPreviewUrl(URL.createObjectURL(file));
+        onFileSelect(file);
+        console.log(res)
+        const imageUrl = res?.data?.data;
+        setImage("https://findcourse.net.uz/api/image/" + imageUrl)
 
+        // setImageType(true)
+      } catch (err) {
+        const error = err as AxiosError<{ message: string }>;
+        toast.error(error.response?.data?.message || "Rasmni yuklashda xatolik");
+      }
+    }
+          
   const handleRemove = () => {
     setFile(null);
     setPreviewUrl(null);
@@ -26,11 +51,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect }) => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const validateFile = (file: File) => {
-    const allowedTypes = ["image/png", "image/jpeg"];
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    return allowedTypes.includes(file.type) && file.size <= maxSize;
-  };
+  // const validateFile = (file: File) => {
+  //   const allowedTypes = ["image/png", "image/jpeg"];
+  //   const maxSize = 5 * 1024 * 1024; // 5MB
+  //   return allowedTypes.includes(file.type) && file.size <= maxSize;
+  // };
 
   const formatSize = (size: number) => {
     return size < 1024

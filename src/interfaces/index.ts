@@ -127,3 +127,7 @@ export interface IMajor {
     name: string
     subjectId: number
 }
+
+export interface IMajors {
+    data: IMajor[]
+}
