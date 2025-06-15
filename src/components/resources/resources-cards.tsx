@@ -2,10 +2,13 @@ import { ICategory, IResources, UserType } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { FaDownload, FaRegTrashAlt, FaStar } from "react-icons/fa";
 import { IoSearchOutline, IoSearchSharp } from "react-icons/io5"
 import NoData from "../no-data/no-data";
 import CentersCardSkeleton from "../skeleton/cards-skleton";
+import AddResourse from "./add-resourse";
+import { Modal } from "antd";
+import toast from "react-hot-toast";
 
 const API = import.meta.env.VITE_API
 
@@ -14,18 +17,46 @@ function ResourcesCards() {
     const [categoryId, setCategoryId] = useState<number | null>(null)
     const [userCategoryId, setUserCategryId] = useState<number | null>(null)
     const [search, setSearch] = useState('')
+    const [refresh, setRefresh] = useState<boolean>(false)
     const userDataRaw = localStorage.getItem('user');
     const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
+    const [deleteId, setDeletedId] = useState<number | null>(null)
+    const [isDeleting, setIsDeleting] = useState(false);
+    const token = localStorage.getItem('token');
+
+    // categories
     const fetchFilterCategory = async () => {
         const res = await axios.get(`${API}/api/categories`);
         return res.data
     };
-
     const { data: courseCAtegory} = useQuery({
         queryKey: ["category"],
         queryFn: fetchFilterCategory,
     });
 
+     // delete item
+    async function handleDelete(itemId: number) {
+        setIsDeleting(true)
+        await axios.delete(`${API}/api/resources/${itemId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            toast.success("The Resource deleted")
+            setRefresh(prev => prev ? false : true)
+            setDeletedId(null)
+        }).catch((err) => {
+            if(err.status == 401) {
+                toast.error('Please Login to like centers')
+            } else {
+                toast.error('Something went wrong')
+            }
+        }).finally(() => {
+            setIsDeleting(false)
+        })
+    }
+
+    // get all resources
     const fetchResources = async () => {
         const res = await axios.get(`${API}/api/resources`)
         const allResources = res?.data?.data
@@ -42,12 +73,12 @@ function ResourcesCards() {
             return searched
         }
     };
-
     const { data: resources, isLoading: loading} = useQuery({
-        queryKey: ["resources", categoryId, userCategoryId, search],
+        queryKey: ["resources", categoryId, userCategoryId, search, refresh],
         queryFn: fetchResources,
     });
     
+    // change cateogry
     function handleChangeCategory(name: string, itemId: number | null, userId: number | null | undefined) {
         setActiveCategory(name)
         setCategoryId(itemId)
@@ -87,7 +118,7 @@ function ResourcesCards() {
                 ))}
             </div>
             <div className="flex justify-center mb-[50px]">
-                <button className="py-[6px] px-[20px] rounded-[10px] cursor-pointer bg-[#451774] text-[#fff]">Resurs qo'shish</button>
+                <AddResourse setRefresh={setRefresh}/>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 justify-between md:grid-cols-3 gap-[40px]">
                 {resources?.map((item: IResources) => (
@@ -104,8 +135,28 @@ function ResourcesCards() {
                                 <span className="text-[#888] text-[14px]">6/10/2025</span>
                             </div>
                             <div className="mb-[10px] flex gap-[10px] items-center justify-between">
-                                <span className="text-[#451774] text-[14px] cursor-pointer hover:underline">Oldindan Ko'rish</span>
-                                <button className="py-[6px] px-[20px] rounded-[20px] bg-[#451774] cursor-pointer  text-[#fff]">Yuklab olish</button>
+                                <a href={item.media} target="_blank"  className="text-[#451774] text-[14px] cursor-pointer hover:underline">Oldindan Ko'rish</a>
+                                <div className="flex gap-[6px] items-center">
+                                    {user?.id == item.userId && <button onClick={() => setDeletedId(item.id)}  className="py-[6px] px-[10px] rounded-[20px] bg-[#ff4800] cursor-pointer  text-[#fff] text-[12px] flex items-center gap-[5px] ">
+                                        <FaRegTrashAlt  className="shrink-0"/>
+                                        <span className="text-wrap">O'chirish</span>
+                                    </button>}
+                                    <a href={item.media} target="_blank" className="py-[6px] px-[10px] rounded-[20px] bg-[#451774] cursor-pointer  text-[#fff] text-[12px] flex items-center gap-[5px] ">
+                                        <FaDownload  className="shrink-0"/>
+                                        <span className="text-nowrap">Yuklab olish</span>
+                                    </a>
+                                </div>
+                                <Modal
+                                    title="Resursni o‘chirishni tasdiqlash"
+                                    closable={{ 'aria-label': 'Custom Close Button' }}
+                                    open={deleteId == item.id}
+                                    onOk={() => handleDelete(item.id)}
+                                    onCancel={() => setDeletedId(null)}
+                                    okText={isDeleting ? "O'chirilmoqda" : "Ok"}
+                                    okButtonProps={{ disabled: isDeleting }}
+                                >
+                                    <p>Siz ushbu resursni o‘chirishni istaysizmi? Bu amalni bekor qilib bo‘lmaydi.</p>
+                                </Modal>
                             </div>
                         </div>
                     </div>

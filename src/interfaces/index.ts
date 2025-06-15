@@ -68,6 +68,7 @@ export interface IResources {
     updatedAt: string
     user: UserType
     userId: number
+    media: string
 }
 export interface IMydata {
     createdAt: string

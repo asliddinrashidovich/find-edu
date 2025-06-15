@@ -56,7 +56,7 @@ function NavbatlarCards() {
                 toast.error('Something went wrong')
             }
         }).finally(() => {
-            setIsDeleting(true)
+            setIsDeleting(false)
         })
     }
     return (
