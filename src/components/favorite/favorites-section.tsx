@@ -8,6 +8,8 @@ import { FaRegHeart, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IoMdHeart } from "react-icons/io";
+import NoData from "../no-data/no-data";
+import CentersCardSkeleton from "../skeleton/cards-skleton";
 
 const API = import.meta.env.VITE_API
 
@@ -19,35 +21,21 @@ function FavoritesSection() {
     const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const navigate = useNavigate()
 
-    console.log(user?.likes)
     const handleSearch = (value: string) => {
         setSearch(value)
     }
-    const fetchMydata = async () => {
-        const res = await axios.get(`${API}/api/users/mydata`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        localStorage.setItem('user', JSON.stringify(res.data.data))
-        return res.data;
-    };
-      
-    const { data: myData} = useQuery({
-        queryKey: ["mydataforLikes", liked],
-        queryFn: fetchMydata,
-    });
-    console.log(myData)
+
     const fetchStudyCenter = async () => {
         const res = await axios.get(`${API}/api/centers`);
         const allProducts =  res?.data?.data;
         const allIdOfCenters = user?.likes.map(item => item.centerId) 
         const filtered = allProducts.filter((product: Iproduct) => allIdOfCenters?.includes(product.id) );
-        return filtered
+        const searched = filtered.filter((product: Iproduct) =>  product?.name.toLowerCase().includes(search.toLowerCase()));
+        return searched
     };
 
-    const { data: coursesData} = useQuery({
-        queryKey: ["coursesLiked", search, liked, user],
+    const { data: coursesData, isLoading: loading} = useQuery({
+        queryKey: ["coursesLikedDatas", search, liked, user],
         queryFn: fetchStudyCenter,
     });
 
@@ -101,9 +89,6 @@ function FavoritesSection() {
                     </button>
                     <input type="text" value={search} onChange={(e) => handleSearch(e.target.value)} placeholder="Kasb, fan yoki o'quv markaz nomini kiriting" className="w-[400px] lg:w-[600px] outline-none"/>
                 </form>
-                <button className="text-[#fff] p-[10px] bg-[#451774] rounded-[10px] cursor-pointer">
-                    Kurslar va Hududlar
-                </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px] md:gap-[70px]">
                 {coursesData?.map((item: Iproduct) => (
@@ -135,6 +120,16 @@ function FavoritesSection() {
                         </div>
                     </div>
                 ))}
+                {!loading && Array.isArray(coursesData) && !coursesData.length && (
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 ">
+                        <NoData>Sizda Yoqtirgan Markazlar Yo'q</NoData>
+                    </div>
+                )}
+                {loading && ( 
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 ">
+                        <CentersCardSkeleton/>
+                    </div>
+                )}
             </div>
         </div>
     </section>
