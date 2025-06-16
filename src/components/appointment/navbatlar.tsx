@@ -75,7 +75,7 @@ function NavbatlarCards() {
                     <div key={item.id} className="rounded-[15px] shadow-xl hover:shadow-2xl overflow-hidden cursor-pointer  translate-all duration-200 relative">
                         <div className="bg-[#faf5ff]">
                             <div className="h-[300px] md:h-[200px]">
-                                <img src={`https://findcourse.net.uz/api/image/${item.filial.image ?? "default.jpg"}`}  className="w-full h-full object-cover" alt="" />
+                                <img src={item.filial?.image ? `https://findcourse.net.uz/api/image/${item.filial.image}` : "default.jpg"}  className="w-full h-full object-cover" alt="filial" />
                             </div>
                             <div className="py-[20px] px-[15px]">
                                 <h3 className="text-[25px] text-[#451774] font-[600] mb-[10px]">{item.center.name}</h3>
