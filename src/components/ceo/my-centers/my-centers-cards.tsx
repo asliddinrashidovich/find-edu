@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { IoMdHeart } from "react-icons/io";
 import NoData from "../../no-data/no-data";
 import CentersCardSkeleton from "../../skeleton/cards-skleton";
-import { Modal, Pagination } from "antd";
+import { Modal } from "antd";
 import { CiEdit } from "react-icons/ci";
 
 const API = import.meta.env.VITE_API
@@ -22,9 +22,7 @@ function MyCentersData() {
     const token = localStorage.getItem('token');
     const userDataRaw = localStorage.getItem('user');
     const user: UserType | null = userDataRaw ? JSON.parse(userDataRaw) : null;
-    const [currentPage, setCurrentPage] = useState(1)
     const [deleteId, setDeleteId] = useState<number | null>(null);
-    const pageSize = 6;
 
     const navigate = useNavigate()
 
@@ -32,22 +30,18 @@ function MyCentersData() {
 
     // get centers
     const fetchStudyCenter = async () => {
-        const res = await axios.get(`${API}/api/users/mycenters`, {
+        const res = await axios.get(`${API}/api/centers`, {
            headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         const allProducts =  res?.data?.data;
-        
-        const filtered = allProducts.filter((product: Iproduct) =>  product.name.toLowerCase().includes(search.toLowerCase()) );
-        
-        const startIndex = (currentPage - 1) * pageSize;
-        const endIndex = startIndex + pageSize;
-        const paginated = filtered.slice(startIndex, endIndex);
-        return paginated;
+        const filteredBySeoId = allProducts.filter((product: Iproduct) => product?.seoId == user?.id );
+        const filtered = filteredBySeoId.filter((product: Iproduct) =>  product.name.toLowerCase().includes(search.toLowerCase()) );
+        return filtered;
     };
     const { data: coursesData, isLoading: loading} = useQuery<Iproduct[]>({
-        queryKey: ["coursesQuery", search, liked, currentPage, refresh],
+        queryKey: ["coursesQuery", search, liked, refresh],
         queryFn: fetchStudyCenter,
     });
 
@@ -90,16 +84,6 @@ function MyCentersData() {
     function handleClick(id: number) {
         navigate(`/centers/${id}`)
     }
-
-    // get total centers
-    const getDataTotalProdcuts = async () => {
-        const res = await axios.get(`${API}/api/centers`);
-        return res.data
-    }
-    const { data: totalCountData} = useQuery({
-        queryKey: ["total-data", search, liked, currentPage],
-        queryFn: getDataTotalProdcuts,
-    });
 
     // handle Delete
     async function handleDelete(deletedId: number) {
@@ -184,9 +168,6 @@ function MyCentersData() {
                         <CentersCardSkeleton/>
                     </div>
                 )}
-            </div>
-            <div className="flex justify-center my-[40px]">
-                <Pagination total={totalCountData?.total} current={currentPage} pageSize={pageSize} onChange={(e) => setCurrentPage(e)}/>
             </div>
         </div>
     </section>

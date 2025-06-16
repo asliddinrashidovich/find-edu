@@ -42,7 +42,6 @@ function CreateFilial() {
             queryFn: fetchLocationsCenters,
         });
 
-
         console.log("centerMajor", centerLocations)
         console.log("sssssssssss", selectbyFilial, filialName, filialId, regionId, phone, address )
 
