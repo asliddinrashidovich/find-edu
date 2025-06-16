@@ -111,7 +111,7 @@ function ResourcesCards() {
                 {courseCAtegory?.data?.map((item: ICategory) => (
                     <div onClick={() => handleChangeCategory(item.name, item.id, null)} className={`w-[100px] md:w-[170px] rounded-[10px] ${activecategory == item.name ? "border-[3px] border-[#0080ff]" : "border-[3px] border-transparent"} overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-200 shadow-sm`}>
                         <div className="h-[70px] md:h-[130px] bg-[#f3f4f6]">
-                            <img src={`/public/resources/${item.id}${item.image}`} alt="" className="object-contain h-[70px] md:h-[130px] w-full" />
+                            <img src={`/resources/${item.id}${item.image}`} alt="" className="object-contain h-[70px] md:h-[130px] w-full" />
                         </div>
                         <h2 className="py-[10px] text-center">{item.name}</h2>
                     </div>
