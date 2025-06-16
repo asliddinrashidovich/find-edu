@@ -74,7 +74,6 @@ function AddResourse({setRefresh}: {setRefresh: React.Dispatch<React.SetStateAct
             title="Yangi resurs qo‘shish"
             closable={{ 'aria-label': 'Custom Close Button' }}
             open={isModalOpen}
-            onOk={handleOk}
             onCancel={handleCancel}
             footer={null}
         >

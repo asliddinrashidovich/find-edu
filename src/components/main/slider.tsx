@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-import type { Swiper as SwiperClass } from 'swiper';
+import type { Swiper as SwiperClass } from 'swiper/types';
 import { Slides } from '@/data/data';
 import { AuroraText } from '../magicui/aurora-text';
 
@@ -11,7 +11,7 @@ export default function Hero() {
   const progressContent = useRef<HTMLSpanElement>(null);
 
   const onAutoplayTimeLeft = (
-    swiper: SwiperClass,
+    _swiper: SwiperClass,
     time: number,
     progress: number
   ) => {
@@ -22,6 +22,7 @@ export default function Hero() {
       progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
     }
   };
+
 
   return (
     <>
