@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import MainLayout from "./layout/main-layout"
-import { AboutPage, BranchDetailsPage, CenterDetails, CreateCenter, FavoritePage, HomePage, LoginPage, MyCentersPage, NotFoundPage, ProfilePage, QueePage, RegisterPage, Resources, VerifyRegisterOtp } from "./pages"
+import { AboutPage, BranchDetailsPage, CenterDetails, CreateCenter, EditMyCenter, FavoritePage, HomePage, LoginPage, MyCentersPage, NotFoundPage, ProfilePage, QueePage, RegisterPage, Resources, VerifyRegisterOtp } from "./pages"
 
 function App() {
   const routes = createBrowserRouter(
@@ -14,6 +14,7 @@ function App() {
         <Route path="appointment" element={<QueePage/>}/>
         <Route path="create-centers" element={<CreateCenter/>}/>
         <Route path="my-centers" element={<MyCentersPage/>}/>
+        <Route path="my-centers/:id" element={<EditMyCenter/>}/>
         <Route path="resources" element={<Resources/>}/>
         <Route path="about" element={<AboutPage/>}/>
         <Route path="favorites" element={<FavoritePage/>}/>

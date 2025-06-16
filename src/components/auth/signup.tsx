@@ -108,7 +108,7 @@ const RegisterForm: React.FC = () => {
                 layout="vertical"
                 className='h-[60px] w-[270px] sm:w-[374px] password_label'
             >
-                <Input placeholder='Enter your password'/>
+                <Input type={"password"} placeholder='Enter your password'/>
             </Form.Item>
 
             <Form.Item

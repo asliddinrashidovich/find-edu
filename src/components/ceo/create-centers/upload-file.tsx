@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaRegImage } from "react-icons/fa";
 const API = import.meta.env.VITE_API
@@ -7,9 +7,10 @@ const API = import.meta.env.VITE_API
 interface ImageUploadProps {
   onFileSelect: (file: File | null) => void;
   setImage: React.Dispatch<React.SetStateAction<string | undefined>>
+  cancelImage: boolean 
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect, setImage }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect, setImage, cancelImage }) => {
   const token = localStorage.getItem('token')
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -35,7 +36,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect, setImage }) => 
         onFileSelect(file);
         console.log(res)
         const imageUrl = res?.data?.data;
-        setImage("https://findcourse.net.uz/api/image/" + imageUrl)
+        setImage(imageUrl)
 
         // setImageType(true)
       } catch (err) {
@@ -51,6 +52,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onFileSelect, setImage }) => 
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  useEffect(() => {
+    handleRemove()
+  }, [cancelImage])
   // const validateFile = (file: File) => {
   //   const allowedTypes = ["image/png", "image/jpeg"];
   //   const maxSize = 5 * 1024 * 1024; // 5MB
