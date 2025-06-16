@@ -7,9 +7,9 @@ import { IoMdAddCircle } from "react-icons/io";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import HeaderSidebar from "./header-sidebar";
-import LanguageChanger from "./language-changer";
 import AuthComponent from "./auth-component";
 import { NavbarData } from "@/data/data";
+import LanguageChanger from "../language/languageChanger";
 
 const API = import.meta.env.VITE_API
 
@@ -34,7 +34,7 @@ function Header() {
       });
     // skrolling header
     const [scrolled, setScrolled] = useState(false);
-    const skrolledCase = scrolled || url.pathname == '/login' || url.pathname == '/register' || url.pathname == '/register/verify-otp' || url.pathname == '/profile'
+    const skrolledCase = scrolled || ( url.pathname !== '/' && url.pathname !== '/about' && url.pathname !== '/resources'  && url.pathname !== '/favorites'  && url.pathname !== '/appointment' && url.pathname !== '/create-centers' && url.pathname !== '/create-centers' && url.pathname !== '/my-centers') 
 
     useEffect(() => {
         const handleScroll = () => {setScrolled(window.scrollY > 50);};
@@ -82,7 +82,7 @@ function Header() {
                   </button>
                   <button onClick={() => navigate("/my-centers")} className="rounded-[7px] p-[5px] cursor-pointer hover:bg-[#461773] hover:text-[#fff] transition-all  duration-200  flex items-center gap-[7px]">
                     <HiMiniBuildingOffice2 />
-                    <p>Mening markazlarim</p>
+                    <p>Mening markazlarim </p>
                   </button>
               </div>
             </div>

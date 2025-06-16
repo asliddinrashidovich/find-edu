@@ -2,7 +2,7 @@ import { MydataType } from "@/interfaces"
 import { useState } from "react"
 import { FaBarsStaggered } from "react-icons/fa6"
 import { useNavigate } from "react-router-dom"
-import LanguageChanger from "./language-changer"
+import LanguageChanger from "../language/languageChanger"
 import { MdEdit } from "react-icons/md"
 import { IoLogOutOutline } from "react-icons/io5"
 
