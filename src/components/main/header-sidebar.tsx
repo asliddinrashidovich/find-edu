@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 import LanguageChanger from "../language/languageChanger"
 import { MdEdit } from "react-icons/md"
 import { IoLogOutOutline } from "react-icons/io5"
+import { useTranslation } from "react-i18next"
+import { getNavbarData } from "@/data/data"
 
 function HeaderSidebar(myData: MydataType) {
     const [openSidebar, setOpenSideBar] = useState<boolean>(false)
@@ -12,6 +14,8 @@ function HeaderSidebar(myData: MydataType) {
     function handleClose() {setOpenSideBar(false)}
     const token = localStorage.getItem('token');
     const  navigate = useNavigate()
+    const { t } = useTranslation();
+    const NavbarData = getNavbarData(t);
     function handleClick(path: string) {
         navigate(path)
         setOpenSideBar(false)
@@ -43,37 +47,32 @@ function HeaderSidebar(myData: MydataType) {
             </div>}
             {!token && <div className="flex md:hidden lg:flex-row flex-col gap-[20px] px-[20px] py-[20px] bg-[#00000040]">
                 <button onClick={() => handleClick("/login")} className="border-[1px] w-full text-[12px] sm:text-[17px] lg:w-[50%] text-center border-[#461773] text-[#461773] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-                    Kirish
+                    {t("authLogin")}
                 </button>
                 <button onClick={() => handleClick("/register")} className=" bg-[#461773] w-full text-[12px] sm:text-[17px] lg:w-[50%] text-center text-[#fff] rounded-[30px] cursor-pointer px-[20px] py-[5px]">
-                    Ro'yxatdan o'tish
+                    {t("authRegister")}
                 </button>
             </div>}
             <div className="p-[20px] flex gap-[13px] flex-col">
-            <h3 onClick={() => handleClick("/")} className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] transition-all duration-200 w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px]  items-center bg-[#EBEFF3] relative">
-                Bosh sahifa 
-            </h3>
-            <h3 onClick={() => handleClick("/about")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
-                Biz haqimizda
-            </h3>
-            <h3 onClick={() => handleClick("/resources")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
-                Resurslar
-            </h3>
-            <h3 onClick={() => handleClick("/favorites")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
-                Sevimlilar
-            </h3>
+
+            {NavbarData.map(item => (
+                <h3 key={item.slug} onClick={() => handleClick(item.slug)} className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] transition-all duration-200 w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px]  items-center bg-[#EBEFF3] relative">
+                    {item.text} 
+                </h3>
+            ))}
+
             {token && <h3 onClick={() => handleClick("/appointment")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
-                Navbatlar
+                {t('navbarAppointment')}
             </h3>}
             {myData?.myData?.role == 'CEO' && <h3 onClick={() => handleClick("/create-centers")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#d8d8d8] relative">
-                Markaz yaratish
+                {t('navbarCreateCenters')}
             </h3>}
             {myData?.myData?.role == 'CEO' && <h3 onClick={() => handleClick("/my-centers")}  className="cursor-pointer rounded-[6px] text-[#545d6a] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#d8d8d8] relative">
-                Mening markazlarim
+                {t('navbarMyCenters')}
             </h3>}
             {token && <h3 onClick={() => handleLogout()}  className="cursor-pointer rounded-[6px] text-[red] hover:bg-[#999] hover:text-[#fff] w-[100%] text-[12px] md:text-[16px] flex gap-[7px] justify-start px-[5px] sm:px-[20px] py-[4px] md:py-[10px] items-center bg-[#EBEFF3] relative">
                 <IoLogOutOutline  className="text-[red]"/>
-                Chiqish
+                {t('headerProfileDelete')}
             </h3>}
             </div>
             <div className="p-[20px] flex md:hidden">

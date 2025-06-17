@@ -1,36 +1,24 @@
-export const Slides = [
+export const getSlides = (t: (key: string) => string) => [
     {
         img: "/backgrounds/pexels-max-fischer-5212700.jpg",
-        text: "Bir qidiruv - cheksiz imkoniyatlar",
-        paragraph: "Biz talabalarga dunyo bo'ylab eng yaxshi kurslar, markazlar va ta'lim imkoniyatlarini topishda yordam beramiz."
+        text: t("heroSlideText1"),
+        paragraph: t("heroSlideParagraph1")
     },
     {
         img: "/backgrounds/pexels-pixabay-256395.jpg",
-        text: "Talabalarni muvaffaqiyatga tayyorlash",
-        paragraph: "Mutaxassislarning tavsiyalari va talabalarning haqiqiy sharhlari bilan ta'lim safaringizni osonlashtiramiz."
+        text: t("heroSlideText2"),
+        paragraph: t("heroSlideParagraph2")
     },
     {
         img: "/backgrounds/pexels-tima-miroshnichenko-9572726.jpg",
-        text: "Yorqin kelajak uchun o'quvchilarni kuchaytirish",
-        paragraph: "Bizning platformamiz talabalarga qiziqishlari, byudjeti va hududiga mos keladigan ta'lim markazlarini topishda yordam beradi."
+        text: t("heroSlideText3"),
+        paragraph: t("heroSlideParagraph3")
     },
 ]
 
-export const NavbarData = [
-    {
-        slug: "/",
-        text: "Bosh sahifa"
-    },
-    {
-        slug: "/about",
-        text: "Biz haqimizda"
-    },
-    {
-        slug: "/resources",
-        text: "Resurslar"
-    },
-    {
-        slug: "/favorites",
-        text: "Sevimlilar"
-    },
+export const getNavbarData = (t: (key: string) => string) => [
+    { slug: "/", text: t("navbarHome") },
+    { slug: "/about", text: t("navbarAbout") },
+    { slug: "/resources", text: t("navbarResources") },
+    { slug: "/favorites", text: t("navbarFavorites") },
 ]

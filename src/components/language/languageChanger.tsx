@@ -17,12 +17,13 @@ function LanguageChanger() {
                 boxShadow: 'none',
                 borderRadius: 0,
             }}
-            defaultValue="en"
+            defaultValue="uz"
             style={{ width: 60 }}
             onChange={handleLanguageChange}
             options={[
-                { value: 'en', label: 'en' },
                 { value: 'uz', label: 'uz' },
+                { value: 'en', label: 'en' },
+                { value: 'ru', label: 'ru' },
             ]}
         />
     </div>

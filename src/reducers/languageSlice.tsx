@@ -4,7 +4,7 @@ import i18n from '../i18n';
 const languageSlice = createSlice({
   name: 'language',
   initialState: {
-    lang: 'en',
+    lang: 'uz',
   },
   reducers: {
     setLanguage(state, action) {

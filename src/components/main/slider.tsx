@@ -3,12 +3,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import type { Swiper as SwiperClass } from 'swiper/types';
-import { Slides } from '@/data/data';
+import { getSlides } from '@/data/data';
 import { AuroraText } from '../magicui/aurora-text';
+import { useTranslation } from 'react-i18next';
 
 export default function Hero() {
   const progressCircle = useRef<SVGSVGElement>(null);
   const progressContent = useRef<HTMLSpanElement>(null);
+  const {t} = useTranslation()
+  const Slides = getSlides(t)
 
   const onAutoplayTimeLeft = (
     _swiper: SwiperClass,

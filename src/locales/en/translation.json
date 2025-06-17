@@ -1,4 +1,24 @@
 {
+    "navbarHome": "Home",
+    "navbarAbout": "About",
+    "navbarResources": "Resources",
+    "navbarFavorites": "Favorites",
+    "navbarAppointment": "Appointment",
+    "navbarCeo": "CEO Dashboard",
+    "navbarCreateCenters": "Create Center",
+    "navbarMyCenters": "My Centers",
+    "headerProfileEdit": "Edit profile",
+    "headerProfileDelete": "Delete",
+    "authLogin": "Login",
+    "authRegister": "Sign up",
+
+    "heroSlideText1": "One search, endless possibilities",
+    "heroSlideParagraph1": "We help students find the best courses, centers, and learning opportunities around the world.",
+    "heroSlideText2": "Preparing students for success",
+    "heroSlideParagraph2": "We make your learning journey easier with expert recommendations and real student reviews.",
+    "heroSlideText3": "Empowering students for a brighter future",
+    "heroSlideParagraph3": "Our platform helps students find learning centers that match their interests, budget, and location.",
+
     "heroSlider1": "KELING KASHF QILING YANGI",
     "heroSlider2": "BIZ BILAN OSON SOTIB OLING",
     "heroSlider3": "SUPER CHEGIRMALI",
@@ -6,6 +26,5 @@
     "heroProduct": "MAHSULOT",
     "heroParagraph": "Biz arzon va zamonaviy mahsulotlarning keng assortimentini taklif qiluvchi onlayn mahsulotlar do'konimiz. Noyob Urban Jungle yaratish uchun mahsulotlarimizdan foydalaning. Sevimli mahsulotlaringizga buyurtma bering!",
     "language": "Til",
-    "navbarHome": "ASOSIY",
     "navbarPosts": "POSTS"
 }

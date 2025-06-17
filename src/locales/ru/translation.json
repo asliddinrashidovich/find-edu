@@ -1,0 +1,32 @@
+{
+    "navbarHome": "Главная",
+    "navbarAbout": "О нас",
+    "navbarResources": "Ресурсы",
+    "navbarFavorites": "Избранное",
+    "navbarAppointment": "Встречи",
+    "navbarCeo": "CEO Панель управления",
+    "navbarCreateCenters": "Создать центр",
+    "navbarMyCenters": "Мои центры",
+    "headerProfileEdit": "Редактировать профиль",
+    "headerProfileDelete": "Удалить",
+    "authLogin": "Войти",
+    "authRegister": "Зарегистрироваться",
+
+    "heroSlideText1": "Один поиск, бесконечные возможности",
+    "heroSlideParagraph1": "Мы помогаем студентам находить лучшие курсы, центры и возможности обучения по всему миру",
+    "heroSlideText2": "Подготовка студентов к успеху",
+    "heroSlideParagraph2": "Мы облегчаем ваш путь обучения с помощью рекомендаций экспертов и реальных отзывов студентов",
+    "heroSlideText3": "Поддержка студентов для более светлого будущего",
+    "heroSlideParagraph3": "Наша платформа помогает студентам находить учебные центры, которые соответствуют их интересам, бюджету и местоположению",
+
+    
+
+    "heroSlider1": "KELING KASHF QILING YANGI",
+    "heroSlider2": "BIZ BILAN OSON SOTIB OLING",
+    "heroSlider3": "SUPER CHEGIRMALI",
+    "heroTitle": "DO'KONIMIZGA HUSH KELIBSIZ",
+    "heroProduct": "MAHSULOT",
+    "heroParagraph": "Biz arzon va zamonaviy mahsulotlarning keng assortimentini taklif qiluvchi onlayn mahsulotlar do'konimiz. Noyob Urban Jungle yaratish uchun mahsulotlarimizdan foydalaning. Sevimli mahsulotlaringizga buyurtma bering!",
+    "language": "Til",
+    "navbarPosts": "POSTLAR"
+}

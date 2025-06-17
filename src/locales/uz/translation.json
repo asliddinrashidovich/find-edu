@@ -1,4 +1,24 @@
 {
+    "navbarHome": "Bosh sahifa",
+    "navbarAbout": "Biz haqimizda",
+    "navbarResources": "Resurslar",
+    "navbarFavorites": "Sevimlilar",
+    "navbarAppointment": "Navbatlar",
+    "navbarCeo": "CEO boshqaruv paneli",
+    "navbarCreateCenters": "Markaz yaratish",
+    "navbarMyCenters": "Mening markazlarim",
+    "headerProfileEdit": "Profilni tahrirlash",
+    "headerProfileDelete": "O'chirish",
+    "authLogin": "Kirish",
+    "authRegister": "Ro'yxatdan o'tish",
+    
+    "heroSlideText1": "Bir qidiruv - cheksiz imkoniyatlar",
+    "heroSlideParagraph1": "Biz talabalarga dunyo bo'ylab eng yaxshi kurslar, markazlar va ta'lim imkoniyatlarini topishda yordam beramiz.",
+    "heroSlideText2": "Talabalarni muvaffaqiyatga tayyorlash",
+    "heroSlideParagraph2": "Mutaxassislarning tavsiyalari va talabalarning haqiqiy sharhlari bilan ta'lim safaringizni osonlashtiramiz.",
+    "heroSlideText3": "Yorqin kelajak uchun o'quvchilarni kuchaytirish",
+    "heroSlideParagraph3": "Bizning platformamiz talabalarga qiziqishlari, byudjeti va hududiga mos keladigan ta'lim markazlarini topishda yordam beradi.",
+
     "heroSlider1": "KELING KASHF QILING YANGI",
     "heroSlider2": "BIZ BILAN OSON SOTIB OLING",
     "heroSlider3": "SUPER CHEGIRMALI",
@@ -6,6 +26,5 @@
     "heroProduct": "MAHSULOT",
     "heroParagraph": "Biz arzon va zamonaviy mahsulotlarning keng assortimentini taklif qiluvchi onlayn mahsulotlar do'konimiz. Noyob Urban Jungle yaratish uchun mahsulotlarimizdan foydalaning. Sevimli mahsulotlaringizga buyurtma bering!",
     "language": "Til",
-    "navbarHome": "ASOSIY",
     "navbarPosts": "POSTLAR"
 }
